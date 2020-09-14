@@ -1,0 +1,36 @@
+@import "~bootstrap-material-design/scss/bootstrap-material-design";
+
+main {
+  padding-top: 50px;
+}
+
+.login-register-form {
+  position: relative;
+  height: 100vh;
+
+  .login-register-form-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+  }
+}
+
+.btn.btn-raised.btn-primary {
+  background-color: #009688;
+  border-color: #009688;
+
+  &:hover {
+    background-color: #008276;
+    border-color: #005951;
+  }
+}
+
+a {
+  color: #009688;
+
+  &:hover {
+    color: #004a43;
+  }
+}

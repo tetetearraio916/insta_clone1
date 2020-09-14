@@ -1,0 +1,28 @@
+
+main
+  .login-register-form
+    .login-register-form-inner
+      .card.mb-3
+        = form_with model: @user, class: 'card-body', local: true do |f|
+          - if @user.errors.any?
+            .alert.alert-danger#error_messsages
+              -@user.errors.full_messages.each do |message|
+                li = message
+          .form-group
+            = f.label :name, 'ユーザー名', class: 'bmd-label-floating'
+            = f.text_field :name, class: 'form-control'
+          .form-group
+            = f.label :email, ' メールアドレス', class: 'bmd-label-floating'
+            = f.text_field :email, class: 'form-control'
+          .form-group
+            = f.label :password, 'パスワード　', class: 'bmd-label-floating'
+            = f.password_field :password, class: 'form-control'
+          .form-group
+            = f.label :password_confirmation, "パスワード(確認)", class: 'bmd-label-floating'
+            = f.password_field :password_confirmation, class: 'form-control'
+          = f.submit '登録', class: 'btn btn-raised btn-primary'
+      .card
+        .card-body
+          | アカウントをお持ちですか
+          = link_to  "ログインする", login_path
+  #modal-container
