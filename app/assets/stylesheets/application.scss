@@ -14,7 +14,6 @@
  *= require_self
  */
 
-@import "@fortawesome/fontawesome/styles.css ";
 @import "bootstrap-material-design/dist/css/bootstrap-material-design";
 
 main {
@@ -32,74 +31,4 @@ main {
     transform: translate(-50%, -50%);
     width: 400px;
   }
-}
-
-.btn.bmd-btn-fab.btn-primary:active:hover,
-.bmd-btn-fab.btn-primary.custom-file-control:active:hover::before,
-.btn.bmd-btn-fab.btn-primary:active:focus,
-.bmd-btn-fab.btn-primary.custom-file-control:active:focus::before,
-.btn.bmd-btn-fab.btn-primary:active.focus,
-.bmd-btn-fab.btn-primary.custom-file-control:active.focus::before,
-.btn.bmd-btn-fab.btn-primary.active:hover,
-.bmd-btn-fab.btn-primary.active.custom-file-control:hover::before,
-.btn.bmd-btn-fab.btn-primary.active:focus,
-.bmd-btn-fab.btn-primary.active.custom-file-control:focus::before,
-.btn.bmd-btn-fab.btn-primary.active.focus,
-.bmd-btn-fab.btn-primary.active.focus.custom-file-control::before,
-.open > .btn.bmd-btn-fab.btn-primary.dropdown-toggle:hover,
-.open
-  > .bmd-btn-fab.btn-primary.dropdown-toggle.custom-file-control:hover::before,
-.open > .btn.bmd-btn-fab.btn-primary.dropdown-toggle:focus,
-.open
-  > .bmd-btn-fab.btn-primary.dropdown-toggle.custom-file-control:focus::before,
-.open > .btn.bmd-btn-fab.btn-primary.dropdown-toggle.focus,
-.open
-  > .bmd-btn-fab.btn-primary.dropdown-toggle.focus.custom-file-control::before,
-.btn.btn-raised.btn-primary:active:hover,
-.btn-raised.btn-primary.custom-file-control:active:hover::before,
-.btn.btn-raised.btn-primary:active:focus,
-.btn-raised.btn-primary.custom-file-control:active:focus::before,
-.btn.btn-raised.btn-primary:active.focus,
-.btn-raised.btn-primary.custom-file-control:active.focus::before,
-.btn.btn-raised.btn-primary.active:hover,
-.btn-raised.btn-primary.active.custom-file-control:hover::before,
-.btn.btn-raised.btn-primary.active:focus,
-.btn-raised.btn-primary.active.custom-file-control:focus::before,
-.btn.btn-raised.btn-primary.active.focus,
-.btn-raised.btn-primary.active.focus.custom-file-control::before,
-.open > .btn.btn-raised.btn-primary.dropdown-toggle:hover,
-.open
-  > .btn-raised.btn-primary.dropdown-toggle.custom-file-control:hover::before,
-.open > .btn.btn-raised.btn-primary.dropdown-toggle:focus,
-.open
-  > .btn-raised.btn-primary.dropdown-toggle.custom-file-control:focus::before,
-.open > .btn.btn-raised.btn-primary.dropdown-toggle.focus,
-.open
-  > .btn-raised.btn-primary.dropdown-toggle.focus.custom-file-control::before,
-.btn-group-raised .btn.btn-primary:active:hover,
-.btn-group-raised .btn-primary.custom-file-control:active:hover::before,
-.btn-group-raised .btn.btn-primary:active:focus,
-.btn-group-raised .btn-primary.custom-file-control:active:focus::before,
-.btn-group-raised .btn.btn-primary:active.focus,
-.btn-group-raised .btn-primary.custom-file-control:active.focus::before,
-.btn-group-raised .btn.btn-primary.active:hover,
-.btn-group-raised .btn-primary.active.custom-file-control:hover::before,
-.btn-group-raised .btn.btn-primary.active:focus,
-.btn-group-raised .btn-primary.active.custom-file-control:focus::before,
-.btn-group-raised .btn.btn-primary.active.focus,
-.btn-group-raised .btn-primary.active.focus.custom-file-control::before,
-.open > .btn-group-raised .btn.btn-primary.dropdown-toggle:hover,
-.open
-  > .btn-group-raised
-  .btn-primary.dropdown-toggle.custom-file-control:hover::before,
-.open > .btn-group-raised .btn.btn-primary.dropdown-toggle:focus,
-.open
-  > .btn-group-raised
-  .btn-primary.dropdown-toggle.custom-file-control:focus::before,
-.open > .btn-group-raised .btn.btn-primary.dropdown-toggle.focus,
-.open
-  > .btn-group-raised
-  .btn-primary.dropdown-toggle.focus.custom-file-control::before {
-  border-color: #009688;
-  background-color: #009688;
 }
