@@ -10,6 +10,13 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require @fortawesome/fontawesome
+//= require @fortawesome/fontawesome-free-solid
+//= require @fortawesome/fontawesome-free-regular
+//= require @fortawesome/fontawesome-free-brands
+//= require jquery/dist/jquery.js
+//= require popper.js/dist/umd/popper.js
+//= require bootstrap-material-design/dist/js/bootstrap-material-design.js
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
