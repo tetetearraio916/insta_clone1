@@ -4,10 +4,7 @@ main
     .login-register-form-inner
       .card.mb-3
         = form_with model: @user, class: 'card-body', local: true do |f|
-          - if @user.errors.any?
-            .alert.alert-danger#error_messsages
-              -@user.errors.full_messages.each do |message|
-                li = message
+          = render 'shared/error_messages', object: @user
           .form-group
             = f.label :name, 'ユーザー名', class: 'bmd-label-floating'
             = f.text_field :name, class: 'form-control'

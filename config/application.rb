@@ -11,12 +11,14 @@ module InstaClone1
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     config.time_zone = 'Asia/Tokyo'
+    config.active_record.default_timezone = :local
     config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
 
     config.generators do |g|
       g.assets false # CSS, JavaScriptファイル生成せず
       g.skip_routes true # trueならroutes.rb変更せず、falseなら通常通り変更
       g.test_framework false # testファイル生成せず
+      g.helper false
     end
 
     # Settings in config/environments/* take precedence over those specified here.
