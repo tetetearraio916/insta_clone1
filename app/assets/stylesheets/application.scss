@@ -15,6 +15,7 @@
  */
 
 @import "bootstrap-material-design/dist/css/bootstrap-material-design";
+@import "swiper/swiper-bundle";
 
 main {
   padding-top: 50px;
@@ -31,4 +32,9 @@ main {
     transform: translate(-50%, -50%);
     width: 400px;
   }
+}
+
+.swiper-container {
+  width: 600px;
+  height: 300px;
 }
