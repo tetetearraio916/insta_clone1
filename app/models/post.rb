@@ -9,6 +9,6 @@
 #  updated_at :datetime         not null
 #
 class Post < ApplicationRecord
-  validates :post, presence: true, length: { maximum: 1000 }
+  validates :content, presence: true, length: { maximum: 1000 }
   mount_uploader :image, ImageUploader
 end

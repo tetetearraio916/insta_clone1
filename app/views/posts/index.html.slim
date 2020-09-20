@@ -1,2 +1,11 @@
-h1 Posts#index
-p Find me in app/views/posts/index.html.slim
+main
+  .container
+    .row
+     .col-md-8.col-12
+      .card.mb-5.post
+        .card-header
+          .d-flex.align-items-center
+        - @posts.each do |post|
+          = link_to image_tag(post), post
+          .card-body
+            .card-text = post.content

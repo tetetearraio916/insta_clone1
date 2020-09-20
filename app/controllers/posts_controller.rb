@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @post = Post.all
+    @posts = Post.all
   end
 
   def new
@@ -14,6 +14,7 @@ class PostsController < ApplicationController
     else
       flash[:danger] = "投稿に失敗しました"
       render :new
+    end
   end
 
   def edit
@@ -25,8 +26,9 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to edit_post_path, success: "更新しました"
     else
-      flash[:danger] = "更新に失敗しました"　
+      flash[:danger] = '更新に失敗しました'
     　render :edit
+    end
   end
 
   def show
@@ -36,6 +38,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    require(:post).permit(:content, :image)
+    params.require(:post).permit(:content, :image)
   end
 end
