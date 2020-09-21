@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :set_post, only: [:show, :edit, :update]
+
   def index
     @posts = Post.all
   end
@@ -8,7 +10,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.new(post_params)
+
     if @post.save
       redirect_to posts_path, success: "投稿しました"
     else
@@ -18,11 +21,9 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def update
-    @post = Post.find(params[:id])
     if @post.update(post_params)
       redirect_to edit_post_path, success: "更新しました"
     else
@@ -32,12 +33,15 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post.find(params[:id])
   end
 
   private
 
   def post_params
     params.require(:post).permit(:content, :image)
+  end
+
+  def set_post
+    @post = current_user.posts.find(params[:id])
   end
 end

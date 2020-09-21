@@ -4,7 +4,7 @@
     ul.navbar-nav.mt-2.mt-lg-0
       - if current_user
         li.nav-item
-          = link_to '#', class: 'nav-link' do
+          = link_to new_post_path, class: 'nav-link' do
             i class = "far fa-image"
         li.nav-item
           = link_to '#', class: 'nav-link' do
@@ -13,6 +13,9 @@
           li.nav-item
             = link_to '#', class: 'nav-link' do
               i class = "far fa-heart fa-lg"
+        li.nav-item
+          = link_to user_path(current_user), class: 'nav-link' do
+            i class = "far fa-comments far fa-user fa-lg"
         li.nav-item
           = link_to "ログアウト", logout_path, method: :delete, class: 'nav-link'
       - else

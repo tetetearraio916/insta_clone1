@@ -33,4 +33,7 @@
 yarn-debug.log*
 .yarn-integrity
 
+# データベースの内容詳細を無視する
 /config/database.yml
+#アップロードした画像を無視する
+/public/uploads
