@@ -4,8 +4,9 @@ main
       .col-md-10.offset-md-1
         .card
           .card-body
-            .text-center.mb-3
-              = link_to  "プロフィール編集", '#', class: 'btn btn-raised btn-warning'
+            - if current_user.id == @user.id
+              .text-center.mb-3
+                = link_to  "プロフィール編集", '#', class: 'btn btn-raised btn-warning'
             .profile.text-center.mb-3
               = @user.name
             .text-center
