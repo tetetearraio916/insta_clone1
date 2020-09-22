@@ -5,8 +5,13 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   process resize_to_fill: [1000, 1000]
 
+
   version :thumb do
    process resize_to_fit: [223,223]
+  end
+
+  version :swiper do
+    process resize_to_fit: [400, 400]
   end
 
   # Choose what kind of storage to use for this uploader:
