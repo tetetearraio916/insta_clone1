@@ -1,8 +1,10 @@
 class PostsController < ApplicationController
+  skip_before_action :require_login, only: :index
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
     @posts = Post.all.order(id: :desc)
+    @users = User.all.order(id: :desc)
   end
 
   def new
@@ -25,7 +27,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to edit_post_path, success: "更新しました"
+      redirect_to root_path, success: "更新しました"
     else
       flash[:danger] = '更新に失敗しました'
     　render :edit
@@ -38,6 +40,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @user = User.find(@post.user_id)
   end
 
   private

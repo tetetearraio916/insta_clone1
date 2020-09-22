@@ -4,14 +4,16 @@ main
       .col-md-10.offset-md-1
         .card
           .card-body
-            - if current_user.id == @user.id
+            - if current_user && current_user.id == @user.id
               .text-center.mb-3
-                = link_to  "プロフィール編集", '#', class: 'btn btn-raised btn-warning'
+                = link_to  "プロフィール編集", edit_user_path, class: 'btn btn-raised btn-warning'
+            .text-center.mb-3
+              = image_tag  "default.png", class: "rounded-circle mr-1"
             .profile.text-center.mb-3
               = @user.name
             .text-center
             hr
-              .row
-                - @posts.each do |post|
-                  .col-md-4.mb-3
-                    = link_to image_tag(post.image.thumb.url), post_path(post), class: "thumb"
+            .row
+              - @posts.each do |post|
+                .col-md-4.mb-3
+                  = link_to image_tag(post.image.thumb.url), post_path(post), class: "thumb"

@@ -10,6 +10,6 @@ main
                 = f.file_field :image, id: 'post_images', class: 'form-control'
               .form-group
                 = f.label :content, "本文"
-                = f.text_field :content, class: 'form-control'
+                = f.text_area :content, class: 'form-control'
               = f.submit '登録する', class: 'btn btn-raised btn-primary'
 #modal-container

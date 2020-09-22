@@ -1,2 +1,22 @@
-h1 Posts#show
-p Find me in app/views/posts/show.html.slim
+main
+  .post-detail.card
+      .image-box
+        .swiper-container.swiper-container-initialized.swiper-container-horizontal
+                    .swiper-wrapper(style="transform: translate3d(0px, 0px, 0px)")
+                      .swiper-slide.swiper-slide-active(style="width: 400px;")
+                        = image_tag @post.image.swiper.url, class: "card-img-top"
+                    .swiper-pagination.swiper-pagination-bullets
+                      <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+      .image-info-box
+        .profile-box.p-3
+          .d-flex.align-items-center
+            = image_tag  "default.png", class: "rounded-circle mr-1"
+            = @user.name
+            - if current_user.id == @post.user_id
+              .ml-auto
+                = link_to post_path(@post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3 delete-button" do
+                  i class = "far fa-trash-alt fa-lg"
+                = link_to edit_post_path(@post), class: "edit-button" do
+                  i class = "far fa-edit fa-lg"
+        hr class = "m-0"

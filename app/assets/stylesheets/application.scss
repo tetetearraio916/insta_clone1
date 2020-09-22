@@ -52,3 +52,37 @@ main {
 img {
   max-width: 100%;
 }
+
+.image-thumbnail {
+  object-fit: cover;
+}
+
+.post-detail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .image-box {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+.post-detail.card {
+  flex-direction: row;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.post-detail .image-info-box {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-center.mb-3 {
+  .rounded-circle {
+    width: 100px;
+    height: 100px;
+  }
+}

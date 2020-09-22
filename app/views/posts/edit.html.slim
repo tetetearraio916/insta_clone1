@@ -1,2 +1,16 @@
-h1 Posts#edit
-p Find me in app/views/posts/edit.html.slim
+main
+  .container
+    .row
+      .col-md-6.col-12.offset-md-3
+        .card
+          .card-body
+            = form_with model: @post, id: 'posts_form', local: true do |f|
+              .form-group
+                = f.label :image, "画像"
+                = f.file_field :image, id: 'post_images', class: 'form-control'
+                = image_tag @post.image.thumbnil.url, class: 'image-thumbnail '
+              .form-group
+                = f.label :content, "本文"
+                = f.text_area :content, class: 'form-control'
+              = f.submit '更新する', class: 'btn btn-raised btn-primary'
+#modal-container

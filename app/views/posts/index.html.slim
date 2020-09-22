@@ -10,7 +10,7 @@ main
                   = link_to user_path(@user) do
                     = image_tag  "default.png", class: "rounded-circle mr-1"
                     = @user.name
-                  - if current_user.id == post.user_id
+                  - if current_user && current_user.id == post.user_id
                     .ml-auto
                       = link_to post_path(post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3 delete-button" do
                         i class = "far fa-trash-alt fa-lg"
@@ -26,3 +26,17 @@ main
                   <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
               .card-body
                 .card-text = post.content
+      .col-md-4.col-12
+        .users-box
+          .card
+            .card-header
+              | ユーザー
+            .card-body
+              - @users.each do |user|
+                .user.mb-3.d-flex.justify-content-between
+                  = link_to user_path(user) do
+                    = image_tag  "default.png", class: "rounded-circle mr-1"
+                    = user.name
+                hr
+            .card-footer
+              = link_to "すべて見る", users_path
