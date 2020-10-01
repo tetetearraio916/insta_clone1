@@ -16,4 +16,5 @@ main
             .row
               - @posts.each do |post|
                 .col-md-4.mb-3
-                  = link_to image_tag(post.image.thumb.url), post_path(post), class: "thumb"
+                  - @images = Image.where(post_id: post.id)
+                  = link_to image_tag(@images[0].url.thumb.url), post_path(post), class: "thumb"

@@ -1,13 +1,13 @@
 main
   .post-detail.card
       .image-box
-        .swiper-container.swiper-container-initialized.swiper-container-horizontal
-                    .swiper-wrapper(style="transform: translate3d(0px, 0px, 0px)")
-                      .swiper-slide.swiper-slide-active(style="width: 400px;")
-                        = image_tag @post.image.swiper.url, class: "card-img-top"
-                    .swiper-pagination.swiper-pagination-bullets
-                      <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
-                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+        .swiper-container.top-carousel
+          .swiper-wrapper(style="transform: translate3d(0px, 0px, 0px)")
+            - @image = Image.where(post_id: @post.id)
+            - @image.each do |img|
+              .swiper-slide(style="width: 400px;")
+                = image_tag img.url.swiper.url, class: "card-img-top"
+          .swiper-pagination.
       .image-info-box
         .profile-box.p-3
           .d-flex.align-items-center

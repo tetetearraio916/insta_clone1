@@ -17,11 +17,18 @@
                )
 end
 
-100.times do |n|
-  content= Faker::Lorem.sentence
-  user_id = rand(1..50)
-  Post.create!(content: content,
-               image: File.open("./public/images/IMG_4060.jpeg"),
-               user_id: user_id,
-               )
+50.times do |n|
+  content = Faker::Quote.famous_last_words
+
+  post = Post.new(content: content,
+                  user_id: rand(1..50),
+                 )
+
+  rand(1..10).times do
+     post.images_attributes = [url: File.open("./public/images/IMG_4060.jpeg"),
+                               id: post.id,
+                              ]
+  end
+
+  post.save!
 end

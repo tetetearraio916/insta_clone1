@@ -4,7 +4,6 @@
 #
 #  id         :bigint           not null, primary key
 #  content    :text(65535)
-#  image      :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint
@@ -19,7 +18,8 @@
 #
 class Post < ApplicationRecord
   validates :content, presence: true, length: { maximum: 1000 }
-  mount_uploader :image, ImageUploader
 
+  has_many :images, dependent: :destroy
+  accepts_nested_attributes_for :images
   belongs_to :user
 end

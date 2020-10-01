@@ -6,10 +6,9 @@ html
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all'
-    = stylesheet_link_tag    "https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css"
+    = stylesheet_link_tag "https://unpkg.com/swiper/swiper-bundle.css"
     = javascript_include_tag 'application'
   body
     = render "layouts/header"
     = render "shared/flash"
     = yield
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"

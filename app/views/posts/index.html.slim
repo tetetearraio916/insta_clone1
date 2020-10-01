@@ -16,14 +16,16 @@ main
                         i class = "far fa-trash-alt fa-lg"
                       = link_to edit_post_path(post), class: "edit-button" do
                         i class = "far fa-edit fa-lg"
-              = link_to post do
-                .swiper-container.swiper-container-initialized.swiper-container-horizontal
+
+              .swiper-container.top-carousel
                   .swiper-wrapper(style="transform: translate3d(0px, 0px, 0px)")
-                    .swiper-slide.swiper-slide-active(style="width: 400px;")
-                        = image_tag post.image.swiper.url, class: "card-img-top"
-                  .swiper-pagination.swiper-pagination-bullets
-                    <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
-                  <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                    - @image = Image.where(post_id: post.id)
+                    - @image.each do |img|
+                      .swiper-slide(style="width: 400px;")
+                         = link_to post do
+                          = image_tag img.url.swiper.url, class: "card-img-top"
+                  .swiper-pagination
+
               .card-body
                 .card-text = post.content
       .col-md-4.col-12
@@ -40,3 +42,15 @@ main
                 hr
             .card-footer
               = link_to "すべて見る", users_path
+
+= javascript_include_tag "https://unpkg.com/swiper/swiper-bundle.js"
+
+
+
+javascript:
+      var swiper = new Swiper('.swiper-container', {
+      pagination: {
+        el: '.swiper-pagination',
+        dynamicBullets: true,
+        },
+      });
