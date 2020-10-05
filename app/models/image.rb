@@ -3,7 +3,7 @@
 # Table name: images
 #
 #  id         :bigint           not null, primary key
-#  url        :json
+#  file       :string(255)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  post_id    :bigint
@@ -18,5 +18,5 @@
 #
 class Image < ApplicationRecord
   belongs_to :post
-  mount_uploader :url, ImageUploader
+  mount_uploader :file, ImageUploader
 end

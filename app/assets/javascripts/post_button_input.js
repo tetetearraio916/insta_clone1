@@ -60,10 +60,10 @@ $(document).on("click", ".image_upload", function () {
     //inputの最後の"data-image"を取得して、input nameの番号を更新させてる。
     $inputs.each(function (num, input) {
       //nameの番号を更新するために、現在の番号を除去
-      $(input).removeAttr("url");
+      $(input).removeAttr("file");
       $(input).attr({
-        name: "post[images_attributes][" + num + "][url]",
-        id: "post_images_attributes_" + num + "_url",
+        name: "post[images_attributes][" + num + "][file]",
+        id: "post_images_attributes_" + num + "_file",
       });
     });
   });

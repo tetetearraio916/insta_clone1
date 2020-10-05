@@ -23,7 +23,7 @@ main
                     - @image.each do |img|
                       .swiper-slide(style="width: 400px;")
                          = link_to post do
-                          = image_tag img.url.swiper.url, class: "card-img-top"
+                          = image_tag img.file.swiper.url, class: "card-img-top"
                   .swiper-pagination
 
               .card-body
