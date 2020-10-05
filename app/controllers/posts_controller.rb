@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:images).all.order(id: :desc)
+    @posts = Post.all.includes(:images,:user).order(id: :desc)
     @users = User.all.order(id: :desc)
   end
 

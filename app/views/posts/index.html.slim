@@ -3,13 +3,13 @@ main
     .row
       .col-md-8.col-12
         - @posts.each do |post|
-            div class = "card mb-5 post" id = "post-#{post.id}"
+            .card.mb-5.post
               .card-header
                 .d-flex.align-items-center
-                  - @user=User.find(post.user_id)
-                  = link_to user_path(@user) do
+
+                  = link_to user_path(post.user) do
                     = image_tag  "default.png", class: "rounded-circle mr-1"
-                    = @user.name
+                    = post.user.name
                   - if current_user && current_user.id == post.user_id
                     .ml-auto
                       = link_to post_path(post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3 delete-button" do
@@ -19,8 +19,8 @@ main
 
               .swiper-container.top-carousel
                   .swiper-wrapper(style="transform: translate3d(0px, 0px, 0px)")
-                    - @image = Image.where(post_id: post.id)
-                    - @image.each do |img|
+
+                    - post.images.each do |img|
                       .swiper-slide(style="width: 400px;")
                          = link_to post do
                           = image_tag img.file.swiper.url, class: "card-img-top"

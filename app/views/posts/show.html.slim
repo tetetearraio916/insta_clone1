@@ -3,8 +3,8 @@ main
     .image-box
       .swiper-container.top-carousel
         .swiper-wrapper(style="transform: translate3d(0px, 0px, 0px)")
-          - @image = Image.where(post_id: @post.id)
-          - @image.each do |img|
+
+          - @post.images.each do |img|
             .swiper-slide(style="width: 400px;")
               = image_tag img.file.swiper.url, class: "card-img-top"
         .swiper-pagination

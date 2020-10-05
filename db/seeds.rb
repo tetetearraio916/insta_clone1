@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-50.times do |n| #100件シードデータを作成するということ。
+50.times do |n| #50件シードデータを作成するということ。
   name = Faker::Name.unique.name
   email = Faker::Internet.unique.email
   password = "password"
@@ -25,9 +25,8 @@ end
                  )
 
   rand(1..10).times do
-     post.images_attributes = [url: File.open("./public/images/IMG_4060.jpeg"),
-                               id: post.id,
-                              ]
+     post.images_attributes = [url: File.open("./public/images/IMG_4060.jpeg")]
+
   end
 
   post.save!

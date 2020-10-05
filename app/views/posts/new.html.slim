@@ -18,8 +18,7 @@ main
                             .upload-label__text
                               | ファイルをアップロード
                               .input-area
-                                = c.file_field :file, class: "hidden image_upload"
-
+                                = c.file_field :file, multiple: true, class: "hidden image_upload"
 
               .form-group
                 = f.label :content, "本文"
