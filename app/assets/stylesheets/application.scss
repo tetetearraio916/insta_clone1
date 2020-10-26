@@ -15,6 +15,7 @@
  */
 
 @import "bootstrap-material-design/dist/css/bootstrap-material-design";
+@import "swiper/swiper-bundle";
 
 main {
   padding-top: 50px;
@@ -31,4 +32,88 @@ main {
     transform: translate(-50%, -50%);
     width: 400px;
   }
+}
+
+.swiper-container {
+  width: 100%;
+}
+
+.post {
+  max-width: 400px;
+  margin: 0 auto;
+
+  .card-img-top {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+.image-thumbnail {
+  object-fit: cover;
+}
+
+.post-detail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .image-box {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+.post-detail.card {
+  flex-direction: row;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.post-detail .image-info-box {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-center.mb-3 {
+  .rounded-circle {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.upload-label {
+  place-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  background-color: rgb(245, 245, 245);
+  border: 1px dashed rgb(204, 204, 204);
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  position: relative;
+  transition: all 0.5s ease-out 0s;
+}
+
+li {
+  padding: 30px, 0;
+}
+
+.image-preview_btn_delete {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+.hidden {
+  display: none;
 }

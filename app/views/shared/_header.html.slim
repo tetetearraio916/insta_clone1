@@ -1,0 +1,19 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-white
+  = link_to  "InstaClone", root_path , class: 'navbar-brand'
+  .collapse.navbar-collapse#navbarTogglerDemo02
+    ul.navbar-nav.mt-2.mt-lg-0
+      li.nav-item
+        = link_to new_post_path, class: 'nav-link' do
+          i class = "far fa-image fa-lg"
+      li.nav-item
+        = link_to '#', class: 'nav-link' do
+          i class = "far fa-comments fa-lg"
+      .dropdown
+        li.nav-item
+          = link_to '#', class: 'nav-link' do
+            i class = "far fa-heart fa-lg"
+      li.nav-item
+        = link_to user_path(current_user), class: 'nav-link' do
+          i class = "far fa-comments far fa-user fa-lg"
+      li.nav-item
+        = link_to "ログアウト", logout_path, method: :delete, class: 'nav-link'
