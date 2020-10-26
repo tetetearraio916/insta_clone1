@@ -15,7 +15,6 @@
                         i class = "far fa-trash-alt fa-lg"
                       = link_to edit_post_path(post), class: "edit-button" do
                         i class = "far fa-edit fa-lg"
-
               .swiper-container.top-carousel
                   .swiper-wrapper(style="transform: translate3d(0px, 0px, 0px)")
 
@@ -24,7 +23,7 @@
                          = link_to post do
                           = image_tag img.file.swiper.url, class: "card-img-top"
                   .swiper-pagination
-
+        = paginate @posts
               .card-body
                 .card-text = post.content
       .col-md-4.col-12
