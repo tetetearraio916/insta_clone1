@@ -19,4 +19,5 @@
 class Image < ApplicationRecord
   belongs_to :post
   mount_uploader :file, ImageUploader
+  validates :file, presence: true
 end

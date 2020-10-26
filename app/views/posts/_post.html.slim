@@ -1,0 +1,22 @@
+.card.mb-5.post
+  .card-header
+    .d-flex.align-items-center
+        = image_tag  "default.png", size: '40×40', class: "rounded-circle mr-1"
+        = link_to user_path(post.user) do
+          = post.user.name
+        - if current_user && current_user.id == post.user_id
+          .ml-auto
+            = link_to post_path(post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3" do
+              i class = "far fa-trash-alt fa-lg"
+            = link_to edit_post_path(post) do
+              i class = "far fa-edit fa-lg"
+  = link_to post_path(post) do
+    .swiper-container.top-carousel
+      .swiper-wrapper
+        - post.images.each do |img|
+          .swiper-slide
+            = image_tag img.swiper.url, class: "card-img-top"
+      .swiper-pagination
+    .card-body
+      .card-text
+        = post.content

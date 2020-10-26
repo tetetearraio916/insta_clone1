@@ -1,0 +1,20 @@
+= form_with model: post, class: 'form', id: 'posts_form', local: true do |f|
+  = render 'shared/error_messages', object: post
+  .form-image
+    .form-image__title
+      label 画像
+      .form-image__text
+        | 最大10枚まで
+        = f.fields_for :images do |c|
+          ul#previews
+            li.input
+              label.upload-label
+                i class = "fas fa-camera"
+                .upload-label__text
+                  | ファイルをアップロード
+                  .input-area
+                    = c.file_field :url, multiple: true,  class: "hidden image_upload"
+  .form-group
+    = f.label :content, "本文"
+    = f.text_area :content, class: 'form-control'
+  = f.submit '登録する', class: 'btn btn-raised btn-primary'
