@@ -23,9 +23,9 @@
                          = link_to post do
                           = image_tag img.file.swiper.url, class: "card-img-top"
                   .swiper-pagination
-        = paginate @posts
               .card-body
                 .card-text = post.content
+        = paginate @posts
       .col-md-4.col-12
         .users-box
           .card

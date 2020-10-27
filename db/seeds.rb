@@ -17,7 +17,7 @@
                )
 end
 
-50.times do |n|
+100.times do |n|
   content = Faker::Quote.famous_last_words
 
   post = Post.new(content: content,
@@ -25,7 +25,7 @@ end
                  )
 
   rand(1..10).times do
-     post.images_attributes = [url: File.open("./public/images/IMG_4060.jpeg")]
+     post.images_attributes = [file: File.open("./public/images/IMG_4060.jpeg")]
 
   end
 

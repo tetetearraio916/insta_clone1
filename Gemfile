@@ -82,5 +82,3 @@ gem 'mini_magick'
 gem 'faker'
 #ページネーション機能実装
 gem 'kaminari'
-#ページネーションのbootstrap
-gem 'kaminari-bootstrap'
