@@ -15,8 +15,7 @@
       .swiper-wrapper
         - post.images.each do |img|
           .swiper-slide
-            = image_tag img.swiper.url, class: "card-img-top"
+            = image_tag img.file.swiper.url, class: "card-img-top"
       .swiper-pagination
-    .card-body
-      .card-text
-        = post.content
+  .card-body
+    .card-text = post.content
