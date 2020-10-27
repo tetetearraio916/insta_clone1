@@ -3,12 +3,13 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all.includes(:images,:user).order(id: :desc).page(params[:page]).per(15)
+    @posts = Post.all.includes(:images,:user).page(params[:page]).order(id: :desc)
     @users = User.all.order(id: :desc)
   end
 
   def new
     @post = Post.new
+    @post.images.build
   end
 
   def create
@@ -25,11 +26,11 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
+    if @post.update(update_post_params)
       redirect_to root_path, success: "更新しました"
     else
       flash[:danger] = '更新に失敗しました'
-    　render :edit
+      render :edit
     end
   end
 
@@ -46,6 +47,10 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:content, images_attributes: [:file])
+  end
+
+  def update_post_params
+    params.require(:post).permit(:content, images_attributes: [:file, :_destroy, :id])
   end
 
   def set_post

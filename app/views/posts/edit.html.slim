@@ -4,13 +4,23 @@ main
       .col-md-6.col-12.offset-md-3
         .card
           .card-body
-            = form_with model: @post, id: 'posts_form', local: true do |f|
+            = form_with model: @post, local: true do |f|
               .form-group
-                = f.label :image, "画像"
-                = f.file_field :image, id: 'post_images', class: 'form-control'
-                = image_tag @post.image.thumbnil.url, class: 'image-thumbnail '
+                = f.label :images, "画像"
+                  = f.fields_for :images do |c|
+                    = c.file_field :file, mutiple: true, class: "form-control"
+                .swiper-container.top-carousel
+                  .swiper-wrapper
+                    - @post.images.each do |img|
+                      .swiper-slide
+                        = image_tag img.file.thumbnil.url, class: "image-thumbnail"
+                  .swiper-pagination
               .form-group
                 = f.label :content, "本文"
                 = f.text_area :content, class: 'form-control'
-              = f.submit '更新する', class: 'btn btn-raised btn-primary'
+              = f.submit "更新する", class: 'btn btn-primary btn-raised'
+
 #modal-container
+
+
+= javascript_include_tag "application"
