@@ -1,4 +1,4 @@
-$(document).on("click", ".image_upload", function () {
+$(document).on("click", "image-upload", function () {
   //$liに追加するためのプレビュー画面のHTML
   var preview = $(
     `<div class="image-preview__wapper"><img class="preview"></div><div class="image-preview_btn"><div class="image-preview_btn_delete btn btn-raised btn-primary">削除</div></div>`

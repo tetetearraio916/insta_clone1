@@ -3,8 +3,7 @@
   .form-group
     = f.label :images, "画像"
     = f.fields_for :images do |c|
-      = c.file_field :file, multiple: true,  class: "form-control"
-      = c.hidden_field :id, value: c.object.id
+      = c.file_field :file, multiple: true, name: "images[file][]", class: "form-control"
   .form-group
     = f.label :content, "本文"
     = f.text_area :content, class: 'form-control'

@@ -3,18 +3,25 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all.includes(:images,:user).page(params[:page]).order(id: :desc)
+    @posts = Post.includes(:images,:user).page(params[:page]).order(id: :desc)
     @users = User.all.order(id: :desc)
   end
 
   def new
     @post = Post.new
     @post.images.build
+
   end
 
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
+      if params[:images].present?
+        # フォームで入力されたファイルを一つずつレコードに格納していく
+        params[:images][:file].each do |a|
+          @image = @post.images.create!(file: a, post_id: @post.id)
+        end
+      end
       redirect_to posts_path, success: "投稿しました"
     else
       flash[:danger] = "投稿に失敗しました"
@@ -26,7 +33,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update(update_post_params)
+    if @post.update(post_params)
       redirect_to root_path, success: "更新しました"
     else
       flash[:danger] = '更新に失敗しました'
@@ -46,12 +53,10 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, images_attributes: [:file])
+    params.require(:post).permit(:content, images_attributes: [:file, :_destroy, :id]).merge(user_id: current_user.id)
   end
 
-  def update_post_params
-    params.require(:post).permit(:content, images_attributes: [:file, :_destroy, :id])
-  end
+
 
   def set_post
     @post = Post.find(params[:id])
