@@ -65,12 +65,20 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+#拡張子をslimに変更
 gem 'slim-rails'
 gem 'html2slim'
+#スキーマ情報をモデルに自動記載
 gem 'annotate'
+#セッションをredisサーバーに管理
 gem 'redis-rails'
+#ログイン機能管理
 gem 'sorcery'
-gem 'rails-i18n'
+#画像アップロード機能
 gem 'carrierwave'
+#画像リサイズ
 gem 'mini_magick'
+#偽データ作成
 gem 'faker'
+#ページネーション機能実装
+gem 'kaminari'
