@@ -33,7 +33,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update(update_post_params)
+    if @post.update(post_params)
       redirect_to root_path, success: "更新しました"
     else
       flash[:danger] = '更新に失敗しました'
@@ -53,12 +53,10 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, images_attributes: [:file])
-  end
-
-  def update_post_params
     params.require(:post).permit(:content, images_attributes: [:file, :_destroy, :id]).merge(user_id: current_user.id)
   end
+
+
 
   def set_post
     @post = Post.find(params[:id])
