@@ -48,6 +48,9 @@ class PostsController < ApplicationController
 
   def show
     @user = User.find(@post.user_id)
+    @comment = Comment.new
+    #新着順で表示
+    @comments = @post.comments.order(created_at: :desc)
   end
 
   private

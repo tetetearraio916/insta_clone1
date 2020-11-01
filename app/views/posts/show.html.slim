@@ -1,5 +1,4 @@
-main
-  .post-detail.card
+.post-detail.card
     .image-box
       .swiper-container.top-carousel
         .swiper-wrapper(style="transform: translate3d(0px, 0px, 0px)")
@@ -20,3 +19,17 @@ main
               = link_to edit_post_path(@post), class: "edit-button" do
                 i class = "far fa-edit fa-lg"
       hr class = "m-0"
+      .post-body.p-3
+        .row.no-gutters
+          .col-2
+            = image_tag  "default.png", class: "rounded-circle mr-1"
+          .col-10
+            p = @post.content
+        hr
+        #comments-box
+          = render 'comments/comment', comments: @comments, user: @user
+      hr class = "m-0"
+      .post-comment.p-3
+        = render 'comments/form', comment: @comment, post: @post
+
+#modal-container
