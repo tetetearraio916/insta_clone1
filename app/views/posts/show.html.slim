@@ -27,9 +27,10 @@
             p = @post.content
         hr
         #comments-box
-          = render 'comments/comment', comments: @comments, user: @user
+          = render 'comments/comment', comments: @comments, user: @user, post: @post
       hr class = "m-0"
       .post-comment.p-3
         = render 'comments/form', comment: @comment, post: @post
 
 #modal-container
+  div class = "modal" id = "comment-edit-modal" style = "display: none;" aria-hidden = "true"

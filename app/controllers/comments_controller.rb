@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
-
   def index
   end
 
@@ -10,24 +9,20 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
     @comment.user_id = current_user.id
     @comment.save
-    render :create
   end
 
+  def
+
   def edit
-    @comment = Comment.find(params[:id])
+     @post = Post.find(params[:post_id])
   end
 
   def update
-    @comment = Comment.find(params[:id])
-    @comment.update(comment_params) if @comment.user_id == current_user
-    render :index
+    @comment.update(comment_params)
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy
-    head :no_content
-    render :index
   end
 
   private
@@ -36,7 +31,9 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:content, :post_id, :user_id)
   end
 
+
   def set_comment
     @comment = Comment.find(params[:id])
   end
+
 end

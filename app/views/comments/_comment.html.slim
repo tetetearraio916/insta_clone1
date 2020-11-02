@@ -1,6 +1,6 @@
 - comments.each do |comment|
   - unless comment.id.nil?
-    div id = "coment-#{comment.id}"
+    div id = "comment-#{comment.id}"
       .row.no-gutters
         .col-2
           = image_tag  "default.png", class: "rounded-circle mr-1"
@@ -9,8 +9,9 @@
             = comment.user.name
           = comment.content
         .col-1
-          = link_to comment, method: :delete, remote: true, data: {confirm: "本当に消去しますか？"}, class: "delete" do
-            i class = "far fa-trash-alt fa-lg"
-          = link_to edit_comment_path(comment), remote: true do
-            i class = "far fa-edit fa-lg"
+          - if current_user.id == comment.user_id
+            = link_to comment, method: :delete, remote: true, data: {confirm: "本当に消去しますか？"}, class: "delete" do
+              i class = "far fa-trash-alt fa-lg"
+            = link_to edit_comment_path(comment), remote: true do
+              i class = "far fa-edit fa-lg"
       hr
