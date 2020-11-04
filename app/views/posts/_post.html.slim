@@ -11,8 +11,8 @@
               = link_to edit_post_path(post) do
                 i class = "far fa-edit fa-lg"
           - else
-            #like_area-=post.id
-              = render "likes/like", remote: true, post: post
+            div id = "like_area-#{post.id}"
+              = render "likes/like", post: post
   = link_to post_path(post) do
     .swiper-container.top-carousel
       .swiper-wrapper

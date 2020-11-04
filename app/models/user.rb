@@ -38,7 +38,7 @@ class User < ApplicationRecord
   end
 
   #　その投稿にいいねがあるかどうか
-  def like?
-    likes.present?
+  def like?()
+    like_users.include?(user)
   end
 end
