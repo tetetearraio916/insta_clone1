@@ -1,1 +1,5 @@
-= render "save"
+- if @comment.errors.present?
+  | alert("#{@comment.errors.full_messages.join('\n')}");
+- else
+  | $("#comments-box").prepend("#{j render('comments/comment', comment: @comment , user: @user)}");
+  | $("#comment-body").val("");

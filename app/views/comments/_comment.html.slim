@@ -1,5 +1,4 @@
-- comments.each do |comment|
-  - unless comment.id.nil?
+- unless comment.id.nil?
     div id = "comment-#{comment.id}"
       .row.no-gutters
         .col-2
@@ -11,7 +10,7 @@
         .col-1
           - if current_user.id == comment.user_id
             = link_to comment, method: :delete, remote: true, data: {confirm: "本当に消去しますか？"}, class: "delete" do
-              i class = "far fa-trash-alt fa-lg"
+              .far.fa-trash-alt.fa-lg
             = link_to edit_comment_path(comment), remote: true do
-              i class = "far fa-edit fa-lg"
+              .far.fa-edit.fa-lg
       hr

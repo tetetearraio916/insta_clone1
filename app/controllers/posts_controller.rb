@@ -49,8 +49,8 @@ class PostsController < ApplicationController
   def show
     @user = User.find(@post.user_id)
     @comment = Comment.new
-    #新着順で表示
-    @comments = @post.comments.order(created_at: :desc)
+    #新着順で表示、N+1問題に対応するためincludesを用いている
+    @comments = @post.comments.includes(:user).order(created_at: :desc)
   end
 
   private

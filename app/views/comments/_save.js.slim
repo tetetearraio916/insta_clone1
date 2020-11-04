@@ -1,6 +1,0 @@
-- if @comment.errors.present?
-  | alert("#{@comment.errors.full_messages.join('\n')}");
-- else
-  | $("#comments-box").html("#{j render('comments/comment', comments: @comment.post.comments, user: @user)}");
-  | $("#comment-body").val("");
-  | $("#comment-edit-modal").modal("hide");
