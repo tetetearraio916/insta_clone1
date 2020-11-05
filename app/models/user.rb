@@ -28,17 +28,17 @@ class User < ApplicationRecord
 
 
   # ポストをいいねする
-  def like(user)
-    likes.create(user_id: user.id)
+  def like(post)
+    likes.create(post_id: post.id)
   end
 
   # ポストのいいねを解除する
-  def unlike(user)
-    likes.find_by(user_id: user.id).destroy
+  def unlike(post)
+    likes.find_by(post_id: post.id).destroy
   end
 
   #　その投稿にいいねがあるかどうか
-  def like?()
-    like_users.include?(user)
+  def like?(post)
+    likes.find_by(post_id: post.id).present?
   end
 end

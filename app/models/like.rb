@@ -19,4 +19,6 @@ class Like < ApplicationRecord
   belongs_to :post
   validates :user_id, presence: true
   validates :post_id, presence: true
+  #post_idとuser_idの組が１組しかないvalidate
+  validates_uniqueness_of :post_id, :user_id
 end

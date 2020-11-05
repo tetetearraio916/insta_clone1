@@ -1,6 +1,6 @@
-- if current_user.like?
-  = link_to likes, remote: true, class: "like-button" do
-    i class = "far fa-heart fa-lg"
+- if current_user.like?(post)
+  = link_to like_path(post), remote: true, method: :delete, class: "unlike-button"
+    .fa.fa-heart.fa-lg
 - else
-  = link_to  like, remote: true, method: :delete, class: "unlike-button"
-    i class = "fa fa-heart fa-lg"
+  = link_to likes_path(post), remote: true, class: "like-button" do
+    .far.fa-heart.fa-lg

@@ -1,12 +1,12 @@
 class LikesController < ApplicationController
 
   def create
-    @post = Post.find(params[:post_id])
-    @post.like(current_user)
+    @user = User.find(params[:user_id])
+    @user.like(post)
   end
 
   def destroy
-    @post = Like.find(params[:id]).post
-    @post.unlike(current_user)
+    @user = Like.find(params[:id]).user
+    @user.unlike(post)
   end
 end
