@@ -7,10 +7,9 @@ class CommentsController < ApplicationController
     @comment.save
   end
 
-  def
+
 
   def edit
-     @post = Post.find(params[:post_id])
   end
 
   def update
