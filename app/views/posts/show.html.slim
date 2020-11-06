@@ -1,5 +1,4 @@
-main
-  .post-detail.card
+.post-detail.card
     .image-box
       .swiper-container.top-carousel
         .swiper-wrapper(style="transform: translate3d(0px, 0px, 0px)")
@@ -16,7 +15,21 @@ main
           - if current_user.id == @post.user_id
             .ml-auto
               = link_to post_path(@post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3 delete-button" do
-                i class = "far fa-trash-alt fa-lg"
+                .far.fa-trash-alt.fa-lg
               = link_to edit_post_path(@post), class: "edit-button" do
-                i class = "far fa-edit fa-lg"
+                .far.fa-edit.fa-lg
       hr class = "m-0"
+      .post-body.p-3
+        .row.no-gutters
+          .col-2
+            = image_tag  "default.png", class: "rounded-circle mr-1"
+          .col-10
+            p = @post.content
+        hr
+        = render "comments/comments", comments: @comments
+      hr class = "m-0"
+      .post-comment.p-3
+        = render 'comments/form', comment: @comment, post: @post
+
+#modal-container
+  div class = "modal" id = "comment-edit-modal" style = "display: none;" aria-hidden = "true"

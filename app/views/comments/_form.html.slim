@@ -1,0 +1,4 @@
+= form_with(model: [post, comment], class: "d-flex mb-0 flex-nowrap justyfy-content-between" ) do |f|
+  = render 'shared/error_messages', object: comment
+  = f.text_field :content, class: "form-control input-comment-body", id: "comment-body", placeholder: "コメント"
+  = f.submit "投稿", class: "btn btn-primary btn-raised"

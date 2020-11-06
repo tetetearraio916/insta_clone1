@@ -1,0 +1,10 @@
+.modal-dialog
+  .modal-content
+    .modal-header
+      h5 class = "modal-title"
+          | コメント編集
+      button arealabel = "Close" class = " close" data-dismiss = "modal" type = "button"
+        span aria-hidden = "true"
+          |  ×
+    .modal-body
+      = render "comments/form", comment: @comment, post: @post
