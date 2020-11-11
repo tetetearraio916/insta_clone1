@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'posts#index'
-  resources :posts
+  
   resources :likes, only: [:create, :destroy]
 
+  #shallowを使う事でurlの省略
+  resources :posts, shallow: true do
+    resources :comments, only: [:create, :edit, :update, :destroy]
+  end
 
   resources :users
 

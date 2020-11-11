@@ -121,3 +121,27 @@ ul {
 .pagination {
   justify-content: center;
 }
+
+.post-detail .image-info-box .post-comment .input-comment-body {
+  flex: 1;
+}
+
+.post-detail .image-info-box .post-body {
+  overflow: scroll;
+  max-height: 250px;
+}
+
+.post-detail .image-info-box .post-comment {
+  margin-top: auto;
+}
+
+.my-0 {
+  margin-bottom: 0 !important;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap !important;
+}
+.d-flex {
+  display: flex !important;
+}
