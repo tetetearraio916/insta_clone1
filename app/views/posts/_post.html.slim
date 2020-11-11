@@ -4,15 +4,17 @@
         = image_tag  "default.png", size: '40×40', class: "rounded-circle mr-1"
         = link_to user_path(post.user) do
           = post.user.name
-        .ml-auto
-          - if current_user && current_user.id == post.user_id
+        /ぼっち演算子を用いてnilの時にはnilを返すようにする/
+        - if current_user&.own?(post)
+          .ml-auto
               = link_to post_path(post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3" do
                 i class = "far fa-trash-alt fa-lg"
               = link_to edit_post_path(post) do
                 i class = "far fa-edit fa-lg"
-          - else
+        - if current_user && !current_user&.own?(post)
+          .ml-auto
             div id = "like_area-#{post.id}"
-              = render "likes/like", post: post
+              = render "like", post: post
   = link_to post_path(post) do
     .swiper-container.top-carousel
       .swiper-wrapper

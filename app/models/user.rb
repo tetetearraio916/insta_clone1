@@ -25,20 +25,28 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
+  #likesのデータが入ったpostを直接取得する事ができる
+  has_many :like_posts, through: :likes, source: :post
+
+  def own?(object)
+    id == object.user_id
+  end
 
 
   # ポストをいいねする
   def like(post)
-    likes.create(post_id: post.id)
+    like_posts << post
   end
 
   # ポストのいいねを解除する
   def unlike(post)
-    likes.find_by(post_id: post.id).destroy
+    like_posts.destroy(post)
   end
 
-  #　その投稿にいいねがあるかどうか
+  #その投稿にいいねがあるかどうか
   def like?(post)
-    likes.find_by(post_id: post.id).present?
+    like_posts.include?(post)
   end
+
+
 end
