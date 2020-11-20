@@ -26,4 +26,22 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  has_many :follow_relationships, foreign_key: "follow_id", class_name: "Relationship", dependent: :destroy
+  has_many :follows, through: :follow_relationships, source: :followed
+  has_many :followed_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
+  has_many :followed, through: :followed_relationships, source: :follow
+
+  def follow(other_user)
+    follow_relationships.create(followed_id: other_user.id)
+  end
+
+  def unfollow(other_user)
+    relationship = follow_relationships.find(followed_id: other_user.id)
+    relationship.destroy
+  end
+
+  def follow?(other_user)
+    follows.include?(other_user)
+  end
+
 end

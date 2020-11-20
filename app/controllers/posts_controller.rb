@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.includes(:images,:user).page(params[:page]).order(id: :desc)
-    @users = User.all.order(id: :desc)
+    @users = User.order(id: :desc)
   end
 
   def new
