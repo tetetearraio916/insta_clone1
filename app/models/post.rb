@@ -24,13 +24,7 @@ class Post < ApplicationRecord
   belongs_to :user
 
 
-  #ログインしているユーザーとそのユーザーのフォロワーのポストだけを取得
-  def login_posts
-    post_all = Post.includes(:images,:user)
-    user = User.find(current_user.id)
-    follow_users = user.follows.all
-    post_all.where(user_id: follow_users).order("created_at DESC").page(params[:page])
-  end
+
 
 
 end

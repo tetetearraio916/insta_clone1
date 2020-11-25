@@ -9,7 +9,7 @@ class PostsController < ApplicationController
       post_all = Post.includes(:images,:user)
       user = User.find(current_user.id)
       follow_users = user.follows.all
-      @posts= post_all.where(user_id: follow_users).order("created_at DESC").page(params[:page])
+      @posts = post_all.where(user_id: follow_users).or(post_all.where(user_id: current_user)).page(params[:page]).order(id: :desc)
     else
       @posts = Post.includes(:images,:user).page(params[:page]).order(id: :desc)
     end

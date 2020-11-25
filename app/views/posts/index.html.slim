@@ -1,13 +1,16 @@
 .container
     .row
         .col-md-8.col-12
-          - if current_user.posts.present?
             = render @posts
             = paginate @posts
-          - else
-            .text-center.font-weight-bold
-              | 誰かをフォローしたらフィードが表示されるよ！！！
+            - if logged_in? && !current_user.posts.present? && !current_user.follows.all.map{ |f| f.posts}.present?
+              .text-center.font-weight-bold
+                | 誰かをフォローしたらフィードが表示されるよ！！！
         .col-md-4.col-12
+          .profile-box.mb-3
+            = link_to user_path(current_user) do
+              = image_tag  "default.png", class: "rounded-circle mr-1"
+              = current_user.name
           .users-box
             .card
               .card-header
