@@ -22,8 +22,33 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
+  
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
+
+  has_many :likes, dependent: :destroy
+  #likesのデータが入ったpostを直接取得する事ができる
+  has_many :like_posts, through: :likes, source: :post
+
+  def own?(object)
+    id == object.user_id
+  end
+
+
+  # ポストをいいねする
+  def like(post)
+    like_posts << post
+  end
+
+  # ポストのいいねを解除する
+  def unlike(post)
+    like_posts.destroy(post)
+  end
+
+  #その投稿にいいねがあるかどうか
+  def like?(post)
+    like_posts.include?(post)
+  end
 
 end
