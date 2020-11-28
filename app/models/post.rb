@@ -25,4 +25,11 @@ class Post < ApplicationRecord
   belongs_to :user
 
   has_many :like_users, through: :likes, source: :user
+
+
+  # nameが存在する場合、nameをlike検索する
+  scope :post_like, -> (post_content) { where('content LIKE ?', "%#{post_content}%")  }
+  scope :user_like, -> (name) { joins(:user).where('name LIKE ?', "%#{name}%") }
+  scope :comment_like, -> (comment_content) { joins(:comments).where('comments.content LIKE ?', "%#{comment_content}%") }
+
 end

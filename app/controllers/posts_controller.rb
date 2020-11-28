@@ -7,6 +7,7 @@ class PostsController < ApplicationController
     @users = User.all.order(id: :desc)
   end
 
+
   def new
     @post = Post.new
     @post.images.build
@@ -53,12 +54,16 @@ class PostsController < ApplicationController
     @comments = @post.comments.includes(:user).order(created_at: :desc)
   end
 
+
+  def search
+    @posts = @search_form.search.includes(:user).page(params[:page])
+  end
+
   private
 
   def post_params
     params.require(:post).permit(:content, images_attributes: [:file, :_destroy, :id]).merge(user_id: current_user.id)
   end
-
 
 
   def set_post
