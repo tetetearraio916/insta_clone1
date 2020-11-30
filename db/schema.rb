@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 2020_11_03_083039) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "file", null: false
     t.bigint "post_id"
@@ -54,6 +53,7 @@ ActiveRecord::Schema.define(version: 2020_11_03_083039) do
     t.string "email", null: false
     t.string "crypted_password"
     t.string "salt"
+    t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

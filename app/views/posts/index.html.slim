@@ -12,7 +12,10 @@
               - @users.each do |user|
                 .user.mb-3.d-flex.justify-content-between
                   = link_to user_path(user) do
-                    = image_tag  "default.png", class: "rounded-circle mr-1"
+                    - if user.avatar.present?
+                      = image_tag  user.avatar.swiper.url, class: "rounded-circle", width: "50", height: "50"
+                    - else
+                      = image_tag  "default.png", class: "rounded-circle", width: "50", height: "50"
                     = user.name
                 hr
             .card-footer

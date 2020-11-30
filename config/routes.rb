@@ -11,9 +11,9 @@ Rails.application.routes.draw do
 
   resources :users
 
-  scope :mypage do
+  namespace :mypage do
     #今回はurlにidが不要なためresourcesではなく、resourceを使う
-    resource :account, only: :edit
+    resource :account, only: [:edit, :update]
   end
 
   get '/login', to: 'sessions#new'
