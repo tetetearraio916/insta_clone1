@@ -4,7 +4,9 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.build(comment_params)
-    @comment.save
+    comment_post = @comment.post
+    if @comment.save
+      comment_post.create_notification_comment!(current_user, @comment.id)
   end
 
 

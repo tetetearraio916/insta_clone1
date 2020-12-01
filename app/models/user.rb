@@ -23,7 +23,12 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
-  
+
+  #通知を送る側のアソシエーション
+  has_many :active_notifications, class_name: "Notification", foreign_key: "visiter_id", dependent: :destroy
+  #通知を受け取る側のアソシエーション
+  has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
+
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -51,5 +56,7 @@ class User < ApplicationRecord
   def like?(post)
     like_posts.include?(post)
   end
+
+
 
 end
