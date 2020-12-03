@@ -41,14 +41,15 @@ ActiveRecord::Schema.define(version: 2020_11_30_124958) do
   end
 
   create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "visiter_id"
-    t.integer "visited_id"
-    t.integer "post_id"
-    t.integer "comment_id"
-    t.string "action"
+    t.string "subject_type"
+    t.bigint "subject_id"
+    t.bigint "user_id"
+    t.integer "action", null: false
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject_type_and_subject_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -64,7 +65,6 @@ ActiveRecord::Schema.define(version: 2020_11_30_124958) do
     t.string "email", null: false
     t.string "crypted_password"
     t.string "salt"
-    t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -75,5 +75,6 @@ ActiveRecord::Schema.define(version: 2020_11_30_124958) do
   add_foreign_key "images", "posts"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "posts", "users"
 end

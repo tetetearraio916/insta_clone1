@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id               :bigint           not null, primary key
-#  avatar           :string(255)
 #  crypted_password :string(255)
 #  email            :string(255)      not null
 #  name             :string(255)      not null
@@ -24,10 +23,8 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
 
-  #通知を送る側のアソシエーション
-  has_many :active_notifications, class_name: "Notification", foreign_key: "visiter_id", dependent: :destroy
-  #通知を受け取る側のアソシエーション
-  has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
+  #notificationのアソシエーション
+  has_many :notifications, dependent: :destroy
 
 
   has_many :posts, dependent: :destroy

@@ -1,0 +1,2 @@
+- current_user.notifications.recent(10).each do |notification|
+    = render "shared/#{notification.action}", notification: notification

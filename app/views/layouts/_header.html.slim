@@ -9,10 +9,15 @@
         li.nav-item
           = link_to '#', class: 'nav-link' do
             i class = "far fa-comments fa-lg"
-        .dropdown
-          li.nav-item
-            = link_to '#', class: 'nav-link' do
-              i class = "far fa-heart fa-lg"
+        li.nav-item
+          div class = "dropdown show"
+            a class="nav-link position-relative" href="#" id="dropdownMenuButton"  data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"
+              .far.fa-heart.fa-lg
+              - if current_user.notifications.present?
+              .badge.badge-warning.navbar-badge.position-absolute
+                = current_user.notifications.count
+            div class = "dropdown-menu dropdown-menu-right m-0 p-0" aria-labelledby = "dropdownMenuButton" id =  "header-activities"
+              =  render "shared/header_notifications"
         li.nav-item
           = link_to user_path(current_user), class: 'nav-link' do
             i class = "far fa-comments far fa-user fa-lg"
