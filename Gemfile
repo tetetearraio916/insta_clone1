@@ -52,6 +52,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'pry-byebug'
   gem 'pry-rails'
+
 end
 
 group :test do
@@ -84,3 +85,6 @@ gem 'faker'
 gem 'kaminari'
 #国際化対応
 gem 'rails-i18n'
+
+gem 'jquery-rails'
+gem 'font-awesome-sass'
