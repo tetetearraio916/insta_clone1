@@ -3,8 +3,12 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:images,:user).page(params[:page]).order(id: :desc)
-    @users = User.all.order(id: :desc)
+    @posts = if current_user
+              current_user.feed.includes(:user).page(params[:page]).order(created_at: :desc)
+             else
+              Post.includes(:images,:user).page(params[:page]).order(created_at: :desc)
+             end
+    @users = User.recent(5)
   end
 
 
