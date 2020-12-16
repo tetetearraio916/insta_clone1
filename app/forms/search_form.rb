@@ -20,7 +20,7 @@ class SearchForm
 
   private
 
-  def split_attributes
+  def split_post_content
     #各属性に対して,stripで先頭と末尾の空白を取り除き、spritで文中の空白文字を分割して配列に戻す。正規表現にはPOSIXブラケットを用いている
     post_content.strip.split(/[[:blank:]]+/)
   end
