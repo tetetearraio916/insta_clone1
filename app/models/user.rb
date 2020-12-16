@@ -36,6 +36,11 @@ class User < ApplicationRecord
   has_many :followed_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
   has_many :followed, through: :followed_relationships, source: :follow
 
+  #defで関数を定義するかscopeを使うかは好みの問題
+
+  #最新順でかつrecentの引数に対してその数だけuserの情報を取得する
+  scope :recent, ->(count) { order(created_at: :desc).limit(count) }
+
   def follow(other_user)
     follow_relationships.create(followed_id: other_user.id)
   end
@@ -65,5 +70,11 @@ class User < ApplicationRecord
   def like?(post)
     like_posts.include?(post)
   end
+
+  def feed
+    #Postsテーブルのuser_idカラムからuserがフォローしているidの配列を取得しているかつその配列にcurrent_userのidも配列に加えてSQL内を検索している。
+    Post.where(user_id: follow_ids << id)
+  end
+
 
 end

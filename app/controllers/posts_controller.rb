@@ -3,16 +3,12 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.order(id: :desc)
-    if logged_in?
-      #フォローしているユーザーの投稿のみを取得
-      post_all = Post.includes(:images,:user)
-      user = User.find(current_user.id)
-      follow_users = user.follows.all
-      @posts = post_all.where(user_id: follow_users).or(post_all.where(user_id: current_user)).page(params[:page]).order(id: :desc)
-    else
-      @posts = Post.includes(:images,:user).page(params[:page]).order(id: :desc)
-    end
+    @posts = if current_user
+              current_user.feed.includes(:user).page(params[:page]).order(created_at: :desc)
+             else
+              Post.includes(:images,:user).page(params[:page]).order(created_at: :desc)
+             end
+    @users = User.recent(5)
   end
 
   def new
