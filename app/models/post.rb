@@ -19,10 +19,11 @@
 class Post < ApplicationRecord
   validates :content, presence: true, length: { maximum: 1000 }
   has_many :likes, dependent: :destroy
+  has_many :like_users, through: :likes, source: :user
   has_many :comments, dependent: :destroy
   has_many :images, dependent: :destroy
   accepts_nested_attributes_for :images
   belongs_to :user
 
-  has_many :like_users, through: :likes, source: :user
+
 end

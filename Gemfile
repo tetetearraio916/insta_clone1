@@ -84,3 +84,4 @@ gem 'faker'
 gem 'kaminari'
 #国際化対応
 gem 'rails-i18n'
+gem 'config'

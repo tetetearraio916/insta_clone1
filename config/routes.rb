@@ -9,7 +9,14 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :edit, :update, :destroy]
   end
 
-  resources :users
+  resources :users do
+    member do
+      get :follow, :followed
+    end
+  end
+
+  resources :relationships, only: [:create, :destroy]
+
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
