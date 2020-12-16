@@ -22,7 +22,7 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
-  
+
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -71,10 +71,12 @@ class User < ApplicationRecord
     like_posts.include?(post)
   end
 
+
   def feed
     #Postsテーブルのuser_idカラムからuserがフォローしているidの配列を取得しているかつその配列にcurrent_userのidも配列に加えてSQL内を検索している。
     Post.where(user_id: follow_ids << id)
   end
+
 
 
 end
