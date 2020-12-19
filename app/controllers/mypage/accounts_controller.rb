@@ -6,9 +6,9 @@ class Mypage::AccountsController < ApplicationController
   def update
     @account = User.find(current_user.id)
     if @account.update(account_params)
-      redirect_to edit_mypage_account_url, success: 'ユーザーの作成に成功しました'
+      redirect_to edit_mypage_account_url, success: 'プロフィールを更新しました'
     else
-      flash[:danger] = 'ユーザーの作成に失敗しました'
+      flash.now[:danger] = 'プロフィールの更新にに失敗しました'
       render :edit
     end
   end

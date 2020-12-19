@@ -5,8 +5,6 @@ class SorceryCore < ActiveRecord::Migration[5.2]
       t.string :email,            null: false
       t.string :crypted_password
       t.string :salt
-      #画像ファイル名用のカラム
-      t.string :avatar
 
       t.timestamps                null: false
     end

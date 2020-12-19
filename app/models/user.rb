@@ -41,6 +41,7 @@ class User < ApplicationRecord
 
   # ポストをいいねする
   def like(post)
+    #Like.newせずとも新しいレコードがインサートする。とても便利なメソッド。
     like_posts << post
   end
 
