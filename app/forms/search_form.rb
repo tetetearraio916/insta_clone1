@@ -12,7 +12,7 @@ class SearchForm
     #重複したレコードを削除し各データに一意性を持たせる
     scope = Post.distinct
     #postモデルで定義したスコープを利用してデータベース検索、また空白によって生まれる何個かの条件から複数のレコードを取得している
-    scope = split_attributes.map{ |word| scope.post_like(word)}.inject{ |result, scp| result.or(scp) } if post_content.present?
+    scope = split_post_content.map{ |word| scope.post_like(word)}.inject{ |result, scp| result.or(scp) } if post_content.present?
     scope = scope.comment_like(comment_content) if comment_content.present?
     scope = scope.user_like(name) if name.present?
     scope
