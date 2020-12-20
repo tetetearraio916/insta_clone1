@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id               :bigint           not null, primary key
+#  avatar           :string(255)
 #  crypted_password :string(255)
 #  email            :string(255)      not null
 #  name             :string(255)      not null
@@ -22,6 +23,9 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
+
+  mount_uploader :avatar, ImageUploader
+
 
 
   has_many :posts, dependent: :destroy
@@ -58,6 +62,7 @@ class User < ApplicationRecord
 
   # ポストをいいねする
   def like(post)
+    #Like.newせずとも新しいレコードがインサートする。とても便利なメソッド。
     like_posts << post
   end
 

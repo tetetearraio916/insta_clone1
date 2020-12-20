@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :likes, only: [:create, :destroy]
 
-  #shallowを使う事でurlの省略
+  #shallowを使う事でurlの親のidを省略
   resources :posts, shallow: true do
     collection do
       get :search
@@ -26,6 +26,11 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
 
 
+
+  namespace :mypage do
+    #今回はurlにidが不要なためresourcesではなく、resourceを使う
+    resource :account, only: [:edit, :update]
+  end
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

@@ -26,8 +26,6 @@ class UsersController < ApplicationController
     @posts = @user.posts
   end
 
-  def edit
-  end
 
   private
 

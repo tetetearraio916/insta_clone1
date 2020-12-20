@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_003149) do
+ActiveRecord::Schema.define(version: 2020_12_16_165326) do
+
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content", null: false
@@ -21,7 +22,6 @@ ActiveRecord::Schema.define(version: 2020_11_19_003149) do
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
-
 
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "file", null: false
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 2020_11_19_003149) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
   end
 
+  create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "follow_id"
+    t.bigint "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follow_id", "followed_id"], name: "index_relationships_on_follow_id_and_followed_id", unique: true
+    t.index ["follow_id"], name: "index_relationships_on_follow_id"
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -56,6 +66,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_003149) do
     t.string "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
