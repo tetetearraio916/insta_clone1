@@ -1,22 +1,33 @@
 .container
     .row
-      .col-md-8.col-12
-        = render @posts
-        = paginate @posts
-      .col-md-4.col-12
-        .users-box
-          .card
-            .card-header
-              | ユーザー
-            .card-body
-              - @users.each do |user|
-                .user.mb-3.d-flex.justify-content-between
-                  = link_to user_path(user) do
-                    - if user.avatar.present?
-                      = image_tag  user.avatar.url, class: "rounded-circle", width: "50", height: "50"
-                    - else
-                      = image_tag  "default.png", class: "rounded-circle", width: "50", height: "50"
-                    = user.name
-                hr
-            .card-footer
-              = link_to "すべて見る", users_path
+
+        .col-md-8.col-12
+            = render @posts
+            = paginate @posts
+            - if logged_in? && !current_user.posts.present? && !current_user.follows.all.map{ |f| f.posts}.present?
+              .text-center.font-weight-bold
+                | 誰かをフォローしたらフィードが表示されるよ！！！
+        .col-md-4.col-12
+          .profile-box.mb-3
+            = link_to user_path(current_user) do
+              = image_tag  "default.png", class: "rounded-circle mr-1"
+              = current_user.name
+          .users-box
+            .card
+              .card-header
+                | ユーザー
+              .card-body
+                - @users.each do |user|
+                  .user.mb-3.d-flex.justify-content-between
+                    = link_to user_path(user) do
+                      = image_tag  "default.png", class: "rounded-circle mr-1"
+                      = user.name
+                    - if logged_in? && user != current_user
+                      div id = "follow-area-#{user.id}"
+                        - if current_user.follow?(user)
+                          = render "users/unfollow", user: user
+                        - else
+                          = render "users/follow", user: user
+                  hr
+              .card-footer
+                = link_to "すべて見る", users_path

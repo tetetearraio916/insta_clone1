@@ -1,0 +1,7 @@
+//application_controller.rbで設定したsearch_formという空のインスタンスに、このフォームで入力されたものがパラメーターに入る。//
+//そして、post_controller.rbのsearchアクション内にとびsearch.html.slimが出力される//
+= form_with(model: search_form, scope: :search, url: search_posts_path, method: :get, class: "form-inline my-2 my-lg-0 mr-auto", local: true) do |f|
+      = f.text_field :post_content, class: "form-control mr-sm-2", placeholder: "本文"
+      = f.text_field :comment_content, class: "form-control mr-sm-2", placeholder: "コメント"
+      = f.text_field :name, class: "form-control mr-sm-2", placeholder: "ユーザー名"
+      = f.submit 'SEARCH', class: "btn btn-outline-success my-2 my-sm-0"

@@ -6,10 +6,26 @@ Rails.application.routes.draw do
 
   #shallowを使う事でurlの親のidを省略
   resources :posts, shallow: true do
+    collection do
+      get :search
+    end
     resources :comments, only: [:create, :edit, :update, :destroy]
   end
 
-  resources :users
+
+  get "search", to: "posts#search"
+
+
+
+  resources :users do
+    member do
+      get :follow, :followed
+    end
+  end
+
+  resources :relationships, only: [:create, :destroy]
+
+
 
   namespace :mypage do
     #今回はurlにidが不要なためresourcesではなく、resourceを使う
