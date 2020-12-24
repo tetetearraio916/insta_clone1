@@ -22,13 +22,14 @@
             .col-md-9
               .mypage_content
                 = form_with model: @account, url: mypage_account_path do |f|
+                  = render "shared/error_messages", object: f.object
                   .form-group
                     = f.label :avatar, "アバター"
                     = f.file_field :avatar, class: "form-control", id: "user_avatar"
                     //バリデーションで引っかかっても画像データを保持してくれる
                     = f.hidden_field :avatar_cache
                     - if @account.avatar.present?
-                      = image_tag  @account.avatar.swiper.url, class: "rounded-circle", id: "avatar_prv", width: "100", height: "100"
+                      = image_tag  @account.avatar.url, class: "rounded-circle", id: "avatar_prv", width: "100", height: "100"
                     - else
                       = image_tag  "default.png", class: "rounded-circle", id: "avatar_prv", width: "100", height: "100"
                   .form-group
