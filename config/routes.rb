@@ -4,17 +4,34 @@ Rails.application.routes.draw do
   #ルートurlは投稿一覧に設定
   root to: 'posts#index'
 
+
   #いいね関連
   resources :likes, only: [:create, :destroy]
 
-  #投稿関連
-  #shallowを使う事でurlの省略
+  #shallowを使う事でurlの親のidを省略
   resources :posts, shallow: true do
+    collection do
+      get :search
+    end
     resources :comments, only: [:create, :edit, :update, :destroy]
   end
 
-  #ユーザー関連
-  resources :users
+
+  resources :users do
+    member do
+      get :follow, :followed
+    end
+  end
+
+  resources :relationships, only: [:create, :destroy]
+
+
+
+  namespace :mypage do
+    #今回はurlにidが不要なためresourcesではなく、resourceを使う
+    resource :account, only: [:edit, :update]
+  end
+
 
   #通知機能
   resources :notifications, only: [] do

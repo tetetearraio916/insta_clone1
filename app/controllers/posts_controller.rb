@@ -3,9 +3,14 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:images,:user).page(params[:page]).order(id: :desc)
-    @users = User.all.order(id: :desc)
+    @posts = if current_user
+              current_user.feed.includes(:user).page(params[:page]).order(created_at: :desc)
+             else
+              Post.includes(:images,:user).page(params[:page]).order(created_at: :desc)
+             end
+    @users = User.recent(5)
   end
+
 
   def new
     @post = Post.new
@@ -53,12 +58,16 @@ class PostsController < ApplicationController
     @comments = @post.comments.includes(:user).order(created_at: :desc)
   end
 
+
+  def search
+    @posts = @search_form.search.includes(:user).page(params[:page])
+  end
+
   private
 
   def post_params
     params.require(:post).permit(:content, images_attributes: [:file, :_destroy, :id]).merge(user_id: current_user.id)
   end
-
 
 
   def set_post
