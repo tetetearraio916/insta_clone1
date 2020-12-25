@@ -25,4 +25,8 @@ class Notification < ApplicationRecord
   belongs_to :subject, polymorphic: true
   #userへの関連付け
   belongs_to :user
+
+  #enumを使うことによって、数値カラムに対して文字列による名前定義ができる
+  enum action_type: { commented_to_own_post: 0, liked_to_own_post: 1, followed_me: 2 }
+  enum checked: { unread: false, read: true }
 end

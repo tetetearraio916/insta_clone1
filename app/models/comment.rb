@@ -28,4 +28,14 @@ class Comment < ApplicationRecord
   #notificationsのアソシエーション
   has_one :notification, as: :subject, dependent: :destroy
 
+  #relationshipsテーブルのレコードが保存された後、create_notificationsメソッドが発動する
+  after_create_commit :create_notifications
+
+  private
+
+  #notificationsテーブルのレコードに保存する
+  def create_notifications
+    Notification.create(subject: self, user: post.user, action_type: :commented_to_own_post)
+  end
+
 end
