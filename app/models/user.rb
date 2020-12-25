@@ -35,6 +35,9 @@ class User < ApplicationRecord
   #likesのデータが入ったpostを直接取得する事ができる
   has_many :like_posts, through: :likes, source: :post
 
+  #notificationのアソシエーション
+  has_many :notifications, dependent: :destroy
+
   has_many :follow_relationships, foreign_key: "follow_id", class_name: "Relationship", dependent: :destroy
   has_many :follows, through: :follow_relationships, source: :followed
   has_many :followed_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy

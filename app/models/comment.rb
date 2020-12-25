@@ -25,4 +25,7 @@ class Comment < ApplicationRecord
   #バリデーション
   validates :content, presence: true
 
+  #notificationsのアソシエーション
+  has_one :notification, as: :subject, dependent: :destroy
+
 end

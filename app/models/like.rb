@@ -25,4 +25,8 @@ class Like < ApplicationRecord
 
   #post_idとuser_idの組が１組しかないvalidate
   validates :user_id, uniqueness: {scope: :post_id}
+
+  #notificationsのアソシエーション
+  has_one :notification, as: :subject, dependent: :destroy
+
 end

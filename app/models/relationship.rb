@@ -26,4 +26,6 @@ class Relationship < ApplicationRecord
   validates :follow_id, presence: true
   validates :followed_id, presence: true
   validates :follow_id, uniqueness: { scope: :followed_id}
+
+  has_one :notification, as: :subject, dependent: :destroy
 end
