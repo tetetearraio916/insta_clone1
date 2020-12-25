@@ -1,0 +1,10 @@
+= link_to read_notification_path(notification), class: "dropdown-item border-bottom #{'read' if notification.read?}", method: :patch do
+  = image_tag notification.subject.user.avatar.url, class: 'rounded-circle mr-1', size: '30x30'
+  object
+    = link_to notification.subject.user.name, user_path(notification.subject.user)
+  | があなたの
+  object
+    = link_to '投稿', post_path(notification.subject.post)
+  | にいいねしました
+  .text-right
+    = l notification.created_at, format: :short
