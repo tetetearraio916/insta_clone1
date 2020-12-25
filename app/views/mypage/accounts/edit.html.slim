@@ -1,24 +1,10 @@
 .container
-  .row
+    .row
     .col-md-8.offset-md-2
       .card
         .card-body
           .row
-            .col-md-3
-              nav
-                ul class = "list-unstyled"
-                  li = link_to "プロフィール編集", edit_mypage_account_path
-                  hr
-                  li = link_to "通知一覧", edit_mypage_account_path
-                  hr
-                  li = link_to "通知設定", edit_mypage_account_path
-                  hr
-                  li = link_to "クレジットカード", edit_mypage_account_path
-                  hr
-                  li = link_to "プラン", edit_mypage_account_path
-                  hr
-                  li = link_to "支払い履歴", edit_mypage_account_path
-                  hr
+            = render "mypage/shared/sidebar"
             .col-md-9
               .mypage_content
                 = form_with model: @account, url: mypage_account_path do |f|

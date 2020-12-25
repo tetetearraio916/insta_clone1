@@ -1,4 +1,9 @@
-class NotificationsController < ApplicationController
+class Mypage::NotificationsController < ApplicationController
+
+  def index
+    @notifications = Notification.order(id: :desc).page(params[:page]).per(10)
+  end
+
   def read
     notification = current_user.notifications.find(params[:id])
     notification.read! if activity.unread?
