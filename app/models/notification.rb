@@ -29,4 +29,16 @@ class Notification < ApplicationRecord
   #enumを使うことによって、数値カラムに対して文字列による名前定義ができる
   enum action_type: { commented_to_own_post: 0, liked_to_own_post: 1, followed_me: 2 }
   enum checked: { unread: false, read: true }
+
+  # 以下でリダイレクト先を出し分けるメソッドを定義
+  def redirect_path
+    case action_type.to_sym
+      when :commented_to_own_post
+        post_path(subject.post, anchor: "comment-#{subject.id}")
+      when :liked_to_own_post
+        post_path(subject.post)
+      when :followed_me
+        user_path(subject.follow)
+    end
+  end
 end
