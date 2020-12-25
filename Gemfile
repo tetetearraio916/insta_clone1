@@ -85,3 +85,5 @@ gem 'kaminari'
 #国際化対応
 gem 'rails-i18n'
 gem 'config'
+
+gem 'jquery-rails'
