@@ -30,7 +30,17 @@ Rails.application.routes.draw do
   namespace :mypage do
     #今回はurlにidが不要なためresourcesではなく、resourceを使う
     resource :account, only: [:edit, :update]
+    #プロフィールの通知一覧
+    resources :notifications, only: :index
   end
+
+  #ヘッダーの通知一覧
+  scope module: :mypage do
+    resources :notifications, only: [] do
+      patch :read, on: :member
+    end
+  end
+
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
