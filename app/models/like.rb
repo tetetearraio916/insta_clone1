@@ -36,7 +36,7 @@ class Like < ApplicationRecord
 
   #notificationsテーブルのレコードに保存する
   def create_notifications
-    Activity.create(subject: self, user: post.user, action_type: :liked_to_own_post)
+    Notification.create(subject: self, user: post.user, action_type: :liked_to_own_post)
   end
 
 end

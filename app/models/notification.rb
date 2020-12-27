@@ -3,8 +3,8 @@
 # Table name: notifications
 #
 #  id           :bigint           not null, primary key
-#  action       :integer          not null
-#  checked      :boolean          default(FALSE), not null
+#  action_type  :integer          not null
+#  checked      :boolean          default("unread"), not null
 #  subject_type :string(255)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -30,6 +30,8 @@ class Notification < ApplicationRecord
   enum action_type: { commented_to_own_post: 0, liked_to_own_post: 1, followed_me: 2 }
   enum checked: { unread: false, read: true }
 
+
+
   # 以下でリダイレクト先を出し分けるメソッドを定義
   def redirect_path
     case action_type.to_sym
@@ -38,7 +40,7 @@ class Notification < ApplicationRecord
       when :liked_to_own_post
         post_path(subject.post)
       when :followed_me
-        user_path(subject.follow)
+        user_path(subject.follows)
     end
   end
 end

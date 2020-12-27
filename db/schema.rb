@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2020_12_25_105252) do
     t.string "subject_type"
     t.bigint "subject_id"
     t.bigint "user_id"
-    t.integer "action", null: false
+    t.integer "action_type", null: false
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -45,8 +45,7 @@ class User < ApplicationRecord
 
   #defで関数を定義するかscopeを使うかは好みの問題
 
-  #最新順でかつrecentの引数に対してその数だけuserの情報を取得する
-  scope :recent, ->(count) { order(created_at: :desc).limit(count) }
+
 
   def follow(other_user)
     follow_relationships.create(followed_id: other_user.id)
