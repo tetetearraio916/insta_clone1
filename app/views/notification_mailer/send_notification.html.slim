@@ -1,2 +1,5 @@
-h1 Notification#send_notification
-p = @greeting + ", find me in app/views/notification_mailer/send_notification.html.slim"
+h2 = "#{@notification.user.name}さん"
+
+p = NotificationMailer.what_action_type?(@notification)
+
+= link_to  "確認する", @notification.redirect_path

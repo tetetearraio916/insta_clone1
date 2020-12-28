@@ -25,4 +25,6 @@ class NotificationMailer < ApplicationMailer
       when :followed_me
         "#{notification.subject.follow.name}さんがあなたをフォローしました"
     end
+  end
+
 end

@@ -1,3 +1,6 @@
-' Notification#send_notification
-= "\r\n" * 2
-' #{@greeting + ", find me in app/views/notification_mailer/send_notification.text.slim"}
+
+= "#{@notification.user.name}さん"
+
+= NotificationMailer.what_action_type?(@notification)
+
+= link_to  "確認する", @notification.redirect_path
