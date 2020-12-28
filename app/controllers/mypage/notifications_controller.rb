@@ -1,7 +1,7 @@
 class Mypage::NotificationsController < ApplicationController
 
   def index
-    @notifications = Notification.order(id: :desc).page(params[:page]).per(10)
+    @notifications = current_user.notification.order(id: :desc).page(params[:page]).per(10)
   end
 
   def read
