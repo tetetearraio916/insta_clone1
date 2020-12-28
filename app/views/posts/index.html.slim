@@ -9,12 +9,10 @@
                 | 誰かをフォローしたらフィードが表示されるよ！！！
         .col-md-4.col-12
           .profile-box.mb-3
-            = link_to user_path(current_user) do
-              - if current_user.avatar.present?
+            - if current_user
+              = link_to user_path(current_user) do
                 = image_tag  current_user.avatar.url, class: "rounded-circle", id: "avatar_prv", width: "50", height: "50"
-              - else
-                = image_tag  "default.png", class: "rounded-circle", id: "avatar_prv", width: "50", height: "50"
-              = current_user.name
+                = current_user.name
           .users-box
             .card
               .card-header
@@ -23,7 +21,7 @@
                 - @users.each do |user|
                   .user.mb-3.d-flex.justify-content-between
                     = link_to user_path(user) do
-                      = image_tag  "default.png", class: "rounded-circle mr-1"
+                      = image_tag  user.avatar.url, class: "rounded-circle mr-1", width: "40", height: "40"
                       = user.name
                     - if logged_in? && user != current_user
                       div id = "follow-area-#{user.id}"

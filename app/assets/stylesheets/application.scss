@@ -16,6 +16,7 @@
 
 @import "bootstrap-material-design/dist/css/bootstrap-material-design";
 @import "swiper/swiper-bundle";
+@import "header";
 
 main {
   padding-top: 50px;
@@ -144,4 +145,9 @@ ul {
 }
 .d-flex {
   display: flex !important;
+}
+
+.badge.badge-warning.navbar-badge.position-absolute {
+  top: 0;
+  right: 0;
 }

@@ -26,4 +26,18 @@ class Relationship < ApplicationRecord
   validates :follow_id, presence: true
   validates :followed_id, presence: true
   validates :follow_id, uniqueness: { scope: :followed_id}
+
+  #notificationへの関連付け
+  has_one :notification, as: :subject, dependent: :destroy
+
+  #relationshipsテーブルのレコードが保存された後、create_notificationsメソッドが発動する
+  after_create_commit :create_notifications
+
+  private
+
+  #notificationsテーブルのレコードに保存する
+  def create_notifications
+    Notification.create(subject: self, user: followed, action_type: :followed_me)
+  end
+
 end
