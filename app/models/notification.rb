@@ -21,6 +21,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Notification < ApplicationRecord
+
+  after_create_commit :notification_mail
+
   #comment、likeへの関連付け
   belongs_to :subject, polymorphic: true
   #userへの関連付け
@@ -43,4 +46,10 @@ class Notification < ApplicationRecord
         user_path(subject.follows)
     end
   end
+
+  def notification_mail
+    NotificationMailer.send_notification(self).deliver
+  end
+
+
 end
