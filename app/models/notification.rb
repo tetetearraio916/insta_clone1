@@ -41,7 +41,7 @@ class Notification < ApplicationRecord
     when :commented_to_own_post
       "#{subject.user.name}さんがあなたの投稿にコメントしました"
     when :liked_to_own_post
-      "#{suject.user.name}さんがあなたの投稿にいいねしました"
+      "#{subject.user.name}さんがあなたの投稿にいいねしました"
     when :followed_me
       "#{subject.follow.name}さんがあなたをフォローしました"
     end
