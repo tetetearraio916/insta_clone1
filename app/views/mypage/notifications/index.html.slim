@@ -9,7 +9,7 @@
               .mypage_content
                 - if current_user.notifications.present?
                   - @notifications.each do |notification|
-                    = render "shared/#{notification.action_type}", notification: notification
+                    = render "mypage/notifications/#{notification.action_type}", notification: notification
                   = paginate @notifications
                 - else
                   .text-center.font-weight-bold

@@ -1,5 +1,10 @@
 h2 = "#{@notification.user.name}さん"
 
-p = NotificationMailer.what_action_type?(@notification)
+p = @notification.what_action_type?
 
-= link_to  "確認する", @notification.redirect_path
+- if @notification.action_type.to_sym == :commented_to_own_post
+  = link_to "確認する", post_url(@notification.subject.post, anchor: "comment-#{@notification.subject.id}")
+- elsif @notification.action_type.to_sym == :liked_to_own_post
+  = link_to "確認する", post_url(@notification.subject.post)
+- else @notification.action_type.to_sym == :followed_me
+  = link_to "確認する", user_url(@notification.subject.follow)

@@ -35,15 +35,15 @@ class Notification < ApplicationRecord
 
 
 
-  # 以下でリダイレクト先を出し分けるメソッドを定義
-  def redirect_path
+
+  def what_action_type?
     case action_type.to_sym
-      when :commented_to_own_post
-        post_path(subject.post, anchor: "comment-#{subject.id}")
-      when :liked_to_own_post
-        post_path(subject.post)
-      when :followed_me
-        user_path(subject.follows)
+    when :commented_to_own_post
+      "#{subject.user.name}さんがあなたの投稿にコメントしました"
+    when :liked_to_own_post
+      "#{suject.user.name}さんがあなたの投稿にいいねしました"
+    when :followed_me
+      "#{subject.follow.name}さんがあなたをフォローしました"
     end
   end
 
