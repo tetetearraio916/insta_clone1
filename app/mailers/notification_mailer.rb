@@ -1,19 +1,23 @@
 class NotificationMailer < ApplicationMailer
 
+  def like_post
+    @user_from = params[:user_from]
+    @user_to = params[:user_to]
+    @post = params[:post]
+    mail(to: @user_to.email, subject: "#{@user_from.username}があなたの投稿にいいねしました")
+  end
 
+  def comment_post
+    @user_from = params[:user_from]
+    @user_to = params[:user_to]
+    @comment = params[:comment]
+    mail(to: @user_to.email, subject: "#{@user_from.username}があなたの投稿にいいねしました")
+  end
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.notification_mailer.send_notification.subject
-  #
-  default from: "instaclon@gmail.com"
-
-  def send_notification(notification)
-    @notification = notification
-    mail subject: @notification.what_action_type?,
-         date: @notification.created_at,
-         to: @notification.user.email
+  def follow
+    @user_from = params[:user_from]
+    @user_to = params[:user_to]
+    mail(to: @user_to.email, subject: "#{@user_from.username}があなたをフォローしました")
   end
 
 
