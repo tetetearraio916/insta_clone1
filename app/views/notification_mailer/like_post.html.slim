@@ -1,0 +1,4 @@
+h2 = "#{@user_to.name}さん"
+p = "#{@user_from.name}さんがあなたの投稿にいいねしました。"
+//メールからリンクが飛ぶのでフルのURLでないといけない//
+= link_to "確認する", post_url(@post)

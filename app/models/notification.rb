@@ -21,6 +21,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Notification < ApplicationRecord
+  #モデル内で_pathなどを使いたい場合、下のようなURIヘルパーを導入しないといけない！
+  include Rails.application.routes.url_helpers
+
   #comment、likeへの関連付け
   belongs_to :subject, polymorphic: true
   #userへの関連付け
@@ -30,17 +33,15 @@ class Notification < ApplicationRecord
   enum action_type: { commented_to_own_post: 0, liked_to_own_post: 1, followed_me: 2 }
   enum checked: { unread: false, read: true }
 
-
-
-  # 以下でリダイレクト先を出し分けるメソッドを定義
   def redirect_path
     case action_type.to_sym
-      when :commented_to_own_post
-        post_path(subject.post, anchor: "comment-#{subject.id}")
-      when :liked_to_own_post
-        post_path(subject.post)
-      when :followed_me
-        user_path(subject.follows)
+    when :commented_to_own_post
+      post_path(subject.post, anchor: "comment-#{subject.id}")
+    when :liked_to_own_post
+      post_path(subject.post)
+    when :followed_me
+      user_path(subject.follow)
     end
   end
+
 end

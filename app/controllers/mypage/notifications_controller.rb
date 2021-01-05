@@ -1,7 +1,9 @@
 class Mypage::NotificationsController < ApplicationController
 
+  before_action :require_login, only: %i[read]
+
   def index
-    @notifications = current_user.notification.order(id: :desc).page(params[:page]).per(10)
+    @notifications = current_user.notifications.order(id: :desc).page(params[:page]).per(10)
   end
 
   def read
@@ -9,4 +11,5 @@ class Mypage::NotificationsController < ApplicationController
     notification.read! if notification.unread?
     redirect_to notification.redirect_path
   end
+
 end

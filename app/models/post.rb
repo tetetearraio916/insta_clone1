@@ -25,6 +25,8 @@ class Post < ApplicationRecord
   accepts_nested_attributes_for :images
   belongs_to :user
 
+  has_one :notification, as: :subject, dependent: :destroy
+
 
   # nameが存在する場合、nameをlike検索する
   scope :post_like, -> (post_content) { where('content LIKE ?', "%#{post_content}%")  }
