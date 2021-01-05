@@ -89,3 +89,5 @@ gem 'config'
 gem 'letter_opener_web'
 #非同期で複数のジョブを処理するためのライブラリ
 gem 'sidekiq'
+#ダッシュボード
+gem 'sinatra', require: false

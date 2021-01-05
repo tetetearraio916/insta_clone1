@@ -4,6 +4,12 @@ Rails.application.routes.draw do
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web, at: "/sidekiq"
+
+
+
   resources :likes, only: [:create, :destroy]
 
   #shallowを使う事でurlの親のidを省略
