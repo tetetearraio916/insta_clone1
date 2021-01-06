@@ -87,3 +87,7 @@ gem 'rails-i18n'
 gem 'config'
 #メールが送られたか確認できる
 gem 'letter_opener_web'
+#非同期で複数のジョブを処理するためのライブラリ
+gem 'sidekiq'
+#ダッシュボード
+gem 'sinatra', require: false
