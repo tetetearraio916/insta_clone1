@@ -1,0 +1,20 @@
+.container
+    .row
+    .col-md-8.offset-md-2
+      .card
+        .card-body
+          .row
+            = render "mypage/shared/sidebar"
+            .col-md-9
+              .mypage_content
+                = form_with model: @user, local: true do |f|
+                  .form-group
+                    = f.check_box :notification_on_comment, {checked: true}, true, false
+                    = f.label :notification_on_comment, "コメント時の通知メール"
+                  .form-group
+                    = f.check_box :notification_on_like, {checked: true}, true, false
+                    = f.label :notification_on_like, "コメント時の通知メール"
+                  .form-group
+                    = f.check_box :notification_on_follow, {checked: true}, true, false
+                    = f.label :notification_on_follow, "コメント時の通知メール"
+                  = f.submit '更新する', class: 'btn btn-raised btn-primary'
