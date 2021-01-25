@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     #プロフィールの通知一覧
     resources :notifications, only: :index
     # notificationの通知設定
-    resource :notification_setting, only: : [:edit, :update]
+    resource :notification_setting, only: [:edit, :update]
   end
 
   #ヘッダーの通知一覧
