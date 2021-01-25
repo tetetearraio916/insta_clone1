@@ -8,10 +8,6 @@ Rails.application.routes.draw do
     mount Sidekiq::Web, at: "/sidekiq"
   end
 
-
-
-
-
   resources :likes, only: [:create, :destroy]
 
   #shallowを使う事でurlの親のidを省略
@@ -22,10 +18,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :edit, :update, :destroy]
   end
 
-
   get "search", to: "posts#search"
-
-
 
   resources :users do
     member do
@@ -42,6 +35,8 @@ Rails.application.routes.draw do
     resource :account, only: [:edit, :update]
     #プロフィールの通知一覧
     resources :notifications, only: :index
+    # notificationの通知設定
+    resource :notification_setting, only: : [:edit, :update]
   end
 
   #ヘッダーの通知一覧
