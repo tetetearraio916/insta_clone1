@@ -7,14 +7,24 @@
             = render "mypage/shared/sidebar"
             .col-md-9
               .mypage_content
-                = form_with model: @user, local: true do |f|
+                = form_with model: @user, url: mypage_notification_setting_path, local: true do |f|
+                  = render 'shared/error_messages', object: @user
                   .form-group
-                    = f.check_box :notification_on_comment, {checked: true}, 1, 0
+                    - if current_user.on_comment?
+                      = f.check_box :notification_on_comment, {checked: true } , 1, 0
+                    - else
+                      = f.check_box :notification_on_comment, {} , 1, 0
                     = f.label :notification_on_comment, "コメント時の通知メール"
                   .form-group
-                    = f.check_box :notification_on_like, {checked: true}, 1, 0
-                    = f.label :notification_on_like, "コメント時の通知メール"
+                    - if current_user.on_like?
+                      = f.check_box :notification_on_like, {checked: true }, 1, 0
+                    - else
+                      = f.check_box :notification_on_like, {} , 1, 0
+                    = f.label :notification_on_like, "いいね時の通知メール"
                   .form-group
-                    = f.check_box :notification_on_follow, {checked: true}, 1, 0
-                    = f.label :notification_on_follow, "コメント時の通知メール"
+                    - if current_user.on_follow?
+                      = f.check_box :notification_on_follow, {checked: true }, 1, 0
+                    - else
+                      = f.check_box :notification_on_follow, {} , 1, 0
+                    = f.label :notification_on_follow, "フォロー時の通知メール"
                   = f.submit '更新する', class: 'btn btn-raised btn-primary'

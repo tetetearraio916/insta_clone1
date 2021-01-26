@@ -7,9 +7,9 @@
 #  crypted_password        :string(255)
 #  email                   :string(255)      not null
 #  name                    :string(255)      not null
-#  notification_on_comment :integer          default(NULL)
-#  notification_on_follow  :integer          default(0)
-#  notification_on_like    :integer          default(NULL)
+#  notification_on_comment :integer          default("on_comment")
+#  notification_on_follow  :integer          default("on_follow")
+#  notification_on_like    :integer          default("on_like")
 #  salt                    :string(255)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
@@ -48,11 +48,9 @@ class User < ApplicationRecord
 
   #defで関数を定義するかscopeを使うかは好みの問題
 
-  enum notification_on_comment: {on_comment: 0, off_comment: 1}
-  enum notification_on_like: {on_like: 0, off_like: 1}
-  enum notification_on_follow: {on_follow: 0, off_follow: 1}
-
-
+  enum notification_on_comment: {off_comment: 0, on_comment: 1}
+  enum notification_on_like: {off_like: 0, on_like: 1}
+  enum notification_on_follow: {off_follow: 0, on_follow: 1}
 
   def follow(other_user)
     follow_relationships.create(followed_id: other_user.id)
