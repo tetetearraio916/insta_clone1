@@ -3,7 +3,7 @@ class RelationshipsController < ApplicationController
   before_action :set_user
 
   def create
-    NotificationMailer.with(user_from: current_user, user_to: @user).follow.deliver_later if current_user.follow(@user)
+    NotificationMailer.with(user_from: current_user, user_to: @user).follow.deliver_later if current_user.follow(@user) && current_user.on_follow?
   end
 
   def destroy
