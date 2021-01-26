@@ -48,9 +48,9 @@ class User < ApplicationRecord
 
   #defで関数を定義するかscopeを使うかは好みの問題
 
-  enum notification_on_comment: {on: 0, off: 1}
-  enum notification_on_like: {on: 0, off: 1}
-  enum notification_on_follow: {on: 0, off: 1}
+  enum notification_on_comment: {on_comment: 0, off_comment: 1}
+  enum notification_on_like: {on_like: 0, off_like: 1}
+  enum notification_on_follow: {on_follow: 0, off_follow: 1}
 
 
 
