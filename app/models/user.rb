@@ -48,9 +48,7 @@ class User < ApplicationRecord
 
   #defで関数を定義するかscopeを使うかは好みの問題
 
-  enum notification_on_comment: {off_comment: 0, on_comment: 1}
-  enum notification_on_like: {off_like: 0, on_like: 1}
-  enum notification_on_follow: {off_follow: 0, on_follow: 1}
+
 
   def follow(other_user)
     follow_relationships.create(followed_id: other_user.id)
