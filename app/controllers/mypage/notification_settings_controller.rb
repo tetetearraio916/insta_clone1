@@ -1,5 +1,4 @@
 class Mypage::NotificationSettingsController < ApplicationController
-  require 'json'
 
   def edit
     @user = User.find(current_user.id)
