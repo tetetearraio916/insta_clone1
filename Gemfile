@@ -91,3 +91,5 @@ gem 'letter_opener_web'
 gem 'sidekiq'
 #ダッシュボード
 gem 'sinatra', require: false
+#SEO対策
+gem 'meta-tags'
