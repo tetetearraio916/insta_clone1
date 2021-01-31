@@ -1,15 +1,16 @@
-.container
+- set_meta_tags titles: "InstaClone - Railsの実践的アプリケーション"
+main
+  .container
     .row
-
-        .col-md-8.col-12
-            = render @posts
-            = paginate @posts
-            - if logged_in? && !current_user.posts.present? && !current_user.follows.all.map{ |f| f.posts}.present?
-              .text-center.font-weight-bold
-                | 誰かをフォローしたらフィードが表示されるよ！！！
-        .col-md-4.col-12
-          .profile-box.mb-3
-            - if current_user
+      .col-md-8.col-12
+        = render @posts
+        = paginate @posts
+          - if logged_in? && !current_user.posts.present? && !current_user.follows.all.map{ |f| f.posts}.present?
+            .text-center.font-weight-bold
+              | 誰かをフォローしたらフィードが表示されるよ！！！
+      .col-md-4.col-12
+        .profile-box.mb-3
+          - if current_user
               = link_to user_path(current_user) do
                 = image_tag  current_user.avatar.url, class: "rounded-circle", id: "avatar_prv", width: "50", height: "50"
                 = current_user.name

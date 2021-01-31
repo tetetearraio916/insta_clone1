@@ -10,6 +10,5 @@ module ApplicationHelper
           image: image_url('/images/default.png'),
         },
     }
-
   end
 end
