@@ -8,4 +8,4 @@ meta:
     - Rails特訓コース
   og:
     type: website
-    image_path: default.png
+    image_path: /images/default.png
