@@ -32,11 +32,10 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
-  #メール送信方法の設定
+  # メール送信方法の設定
   config.action_mailer.delivery_method = :letter_opener_web
-  #configのgemで導入したsettingsのdevelopment.rbから呼び出している
+  # configのgemで導入したsettingsのdevelopment.rbから呼び出している
   config.action_mailer.default_url_options = Settings.default_url_options.to_h
-
 
   config.action_mailer.perform_caching = false
 
@@ -63,6 +62,4 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-
 end

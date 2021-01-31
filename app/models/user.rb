@@ -26,26 +26,22 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, ImageUploader
 
-
-
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-   has_many :likes, dependent: :destroy
-  #likesのデータが入ったpostを直接取得する事ができる
+  has_many :likes, dependent: :destroy
+  # likesのデータが入ったpostを直接取得する事ができる
   has_many :like_posts, through: :likes, source: :post
 
-  #notificationのアソシエーション
+  # notificationのアソシエーション
   has_many :notifications, dependent: :destroy
 
-  has_many :follow_relationships, foreign_key: "follow_id", class_name: "Relationship", dependent: :destroy
+  has_many :follow_relationships, foreign_key: 'follow_id', class_name: 'Relationship', dependent: :destroy
   has_many :follows, through: :follow_relationships, source: :followed
-  has_many :followed_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
+  has_many :followed_relationships, foreign_key: 'followed_id', class_name: 'Relationship', dependent: :destroy
   has_many :followed, through: :followed_relationships, source: :follow
 
-  #defで関数を定義するかscopeを使うかは好みの問題
-
-
+  # defで関数を定義するかscopeを使うかは好みの問題
 
   def follow(other_user)
     follow_relationships.create(followed_id: other_user.id)
@@ -65,7 +61,7 @@ class User < ApplicationRecord
 
   # ポストをいいねする
   def like(post)
-    #Like.newせずとも新しいレコードがインサートする。とても便利なメソッド。
+    # Like.newせずとも新しいレコードがインサートする。とても便利なメソッド。
     like_posts << post
   end
 
@@ -74,17 +70,13 @@ class User < ApplicationRecord
     like_posts.destroy(post)
   end
 
-  #その投稿にいいねがあるかどうか
+  # その投稿にいいねがあるかどうか
   def like?(post)
     like_posts.include?(post)
   end
 
-
   def feed
-    #Postsテーブルのuser_idカラムからuserがフォローしているidの配列を取得しているかつその配列にcurrent_userのidも配列に加えてSQL内を検索している。
+    # Postsテーブルのuser_idカラムからuserがフォローしているidの配列を取得しているかつその配列にcurrent_userのidも配列に加えてSQL内を検索している。
     Post.where(user_id: follow_ids << id)
   end
-
-
-
 end

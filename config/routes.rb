@@ -5,16 +5,12 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: '/letter_opener'
     require 'sidekiq/web'
-    mount Sidekiq::Web, at: "/sidekiq"
+    mount Sidekiq::Web, at: '/sidekiq'
   end
-
-
-
-
 
   resources :likes, only: [:create, :destroy]
 
-  #shallowを使う事でurlの親のidを省略
+  # shallowを使う事でurlの親のidを省略
   resources :posts, shallow: true do
     collection do
       get :search
@@ -22,10 +18,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :edit, :update, :destroy]
   end
 
-
-  get "search", to: "posts#search"
-
-
+  get 'search', to: 'posts#search'
 
   resources :users do
     member do
@@ -35,23 +28,19 @@ Rails.application.routes.draw do
 
   resources :relationships, only: [:create, :destroy]
 
-
-
   namespace :mypage do
-    #今回はurlにidが不要なためresourcesではなく、resourceを使う
+    # 今回はurlにidが不要なためresourcesではなく、resourceを使う
     resource :account, only: [:edit, :update]
-    #プロフィールの通知一覧
+    # プロフィールの通知一覧
     resources :notifications, only: :index
   end
 
-  #ヘッダーの通知一覧
+  # ヘッダーの通知一覧
   scope module: :mypage do
     resources :notifications, only: [] do
       patch :read, on: :member
     end
   end
-
-
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

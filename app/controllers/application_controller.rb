@@ -15,5 +15,4 @@ class ApplicationController < ActionController::Base
   def search_params
     params.fetch(:search, {}).permit(:post_content, :comment_content, :name)
   end
-
 end
