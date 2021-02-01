@@ -16,18 +16,3 @@
                password_confirmation: password,
                )
 end
-
-100.times do |n|
-  content = Faker::Quote.famous_last_words
-
-  post = Post.new(content: content,
-                  user_id: rand(1..50),
-                 )
-
-  rand(1..10).times do
-     post.images_attributes = [file: File.open("./public/images/IMG_4060.jpeg")]
-
-  end
-
-  post.save!
-end

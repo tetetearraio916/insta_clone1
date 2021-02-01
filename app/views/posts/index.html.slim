@@ -1,16 +1,18 @@
-- set_meta_tags titles: "InstaClone - Railsの実践的アプリケーション"
-main
-  .container
+.container
     .row
       .col-md-8.col-12
-        = render @posts
+        - if @posts.present?
+          = render @posts
+        - else
+          .text-center.font-weight-bold
+            | 投稿がありません
         = paginate @posts
-          - if logged_in? && !current_user.posts.present? && !current_user.follows.all.map{ |f| f.posts}.present?
-            .text-center.font-weight-bold
-              | 誰かをフォローしたらフィードが表示されるよ！！！
+        - if logged_in? && !current_user.posts.present? && !current_user.follows.all.map{ |f| f.posts}.present?
+          .text-center.font-weight-bold
+            | 誰かをフォローしたらフィードが表示されるよ！！！
       .col-md-4.col-12
-        .profile-box.mb-3
-          - if current_user
+        - if logged_in?
+          .profile-box.mb-3
               = link_to user_path(current_user) do
                 = image_tag  current_user.avatar.url, class: "rounded-circle", id: "avatar_prv", width: "50", height: "50"
                 = current_user.name
@@ -19,17 +21,6 @@ main
               .card-header
                 | ユーザー
               .card-body
-                - @users.each do |user|
-                  .user.mb-3.d-flex.justify-content-between
-                    = link_to user_path(user) do
-                      = image_tag  user.avatar.url, class: "rounded-circle mr-1", width: "40", height: "40"
-                      = user.name
-                    - if logged_in? && user != current_user
-                      div id = "follow-area-#{user.id}"
-                        - if current_user.follow?(user)
-                          = render "users/unfollow", user: user
-                        - else
-                          = render "users/follow", user: user
-                  hr
+                = render @users
               .card-footer
                 = link_to "すべて見る", users_path

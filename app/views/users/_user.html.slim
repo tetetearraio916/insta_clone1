@@ -1,0 +1,6 @@
+.user.mb-3.d-flex.justify-content-between
+  = link_to user_path(user) do
+    = image_tag  user.avatar.url, class: "rounded-circle mr-1", width: "40", height: "40"
+    = user.name
+  = render 'users/follow_area', user: user
+hr

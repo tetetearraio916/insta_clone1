@@ -6,7 +6,8 @@ class CommentsController < ApplicationController
     NotificationMailer.with(user_from: current_user, user_to: @comment.post.user, comment: @comment).comment_post.deliver_later if @comment.save
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     @comment.update(comment_update_params)

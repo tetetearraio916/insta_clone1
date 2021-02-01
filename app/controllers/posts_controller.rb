@@ -13,18 +13,11 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.images.build
   end
 
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      if params[:images].present?
-        # フォームで入力されたファイルを一つずつレコードに格納していく
-        params[:images][:file].each do |a|
-          @image = @post.images.create!(file: a, post_id: @post.id)
-        end
-      end
       redirect_to posts_path, success: '投稿しました'
     else
       flash[:danger] = '投稿に失敗しました'
@@ -32,7 +25,8 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @post.update(post_params)
@@ -49,7 +43,6 @@ class PostsController < ApplicationController
   end
 
   def show
-    @user = User.find(@post.user_id)
     @comment = Comment.new
     # 新着順で表示、N+1問題に対応するためincludesを用いている
     @comments = @post.comments.includes(:user).order(created_at: :desc)
@@ -62,7 +55,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content, images_attributes: [:file, :_destroy, :id]).merge(user_id: current_user.id)
+    params.require(:post).permit(:content, images: [])
   end
 
   def set_post
