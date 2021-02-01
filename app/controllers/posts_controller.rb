@@ -6,7 +6,7 @@ class PostsController < ApplicationController
     @posts = if current_user
                current_user.feed.includes(:user).page(params[:page]).order(created_at: :desc)
              else
-               Post.includes(:images, :user).page(params[:page]).order(created_at: :desc)
+               Post.includes(:user).page(params[:page]).order(created_at: :desc)
              end
     @users = User.recent(5)
   end
