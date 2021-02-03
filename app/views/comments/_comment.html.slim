@@ -7,9 +7,9 @@ div id = "comment-#{comment.id}"
             = comment.user.name
           = comment.content
         .col-1
-          - if current_user.id == comment.user_id
+          - if current_user&.own?(comment)
             = link_to comment, method: :delete, remote: true, data: {confirm: "本当に消去しますか？"}, class: "delete" do
-              .far.fa-trash-alt.fa-lg
+              .far.fa-trash-alt.fa-sm
             = link_to edit_comment_path(comment), remote: true do
-              .far.fa-edit.fa-lg
+              .far.fa-edit.fa-sm
       hr

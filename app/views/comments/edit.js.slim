@@ -1,4 +1,4 @@
 //jsファイルの_editパーシャルへ飛ぶ//
-| $("#comment-edit-modal").html("#{ escape_javascript(render 'edit')}");
+| $("#modal-container").html("#{ escape_javascript(render 'modal_form', comment: @comment)}");
 //モーダルを表示する//
 | $("#comment-edit-modal").modal("show");

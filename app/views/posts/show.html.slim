@@ -1,39 +1,36 @@
+- set_meta_tags title: '投稿詳細ページ', description: @post.content,
+        og: { image: "#{@post.images.first.url}"}
 .post-detail.card
     .image-box
-      .swiper-container.top-carousel
+      .swiper-container
         .swiper-wrapper(style="transform: translate3d(0px, 0px, 0px)")
-
           - @post.images.each do |img|
             .swiper-slide(style="width: 400px;")
-              = image_tag img.file.swiper.url, class: "card-img-top"
+              = image_tag img.swiper.url, class: "card-img-top"
         .swiper-pagination
     .image-info-box
       .profile-box.p-3
         .d-flex.align-items-center
-          = image_tag  @user.avatar.url, class: "rounded-circle mr-1", width: "40", height: "40"
-          = @user.name
-          .ml-auto
-            - if current_user.id == @post.user_id
+          = image_tag  @post.user.avatar.url, class: "rounded-circle mr-1", width: "40", height: "40"
+          = @post.user.name
+          - if current_user&.own?(@post)
+            .ml-auto
               = link_to post_path(@post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3 delete-button" do
                 .far.fa-trash-alt.fa-lg
               = link_to edit_post_path(@post), class: "edit-button" do
                 .far.fa-edit.fa-lg
-            - else
-              - post = @post
-              div id = "like_area-#{post.id}"
-                = render "like", post: post
-      hr class = "m-0"
+          - if current_user && !current_user.own?(@post)
+            .ml-auto
+              = render 'like_area', post: @post
+      hr.m-0
       .post-body.p-3
         .row.no-gutters
           .col-2
             = image_tag  @post.user.avatar.url , class: "rounded-circle mr-1", width: "40", height: "40"
           .col-10
-            p = @post.content
+            = simple_format(@post.content)
         hr
         = render "comments/comments", comments: @comments
       hr class = "m-0"
       .post-comment.p-3
         = render 'comments/form', comment: @comment, post: @post
-
-#modal-container
-  div class = "modal" id = "comment-edit-modal" style = "display: none;" aria-hidden = "true"

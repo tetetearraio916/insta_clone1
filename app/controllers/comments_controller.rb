@@ -1,13 +1,10 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
 
-
   def create
     @comment = current_user.comments.build(comment_params)
     NotificationMailer.with(user_from: current_user, user_to: @comment.post.user, comment: @comment).comment_post.deliver_later if @comment.save && current_user.notification_on_comment?
   end
-
-
 
   def edit
   end
@@ -30,9 +27,7 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:content)
   end
 
-
   def set_comment
     @comment = current_user.comments.find(params[:id])
   end
-
 end

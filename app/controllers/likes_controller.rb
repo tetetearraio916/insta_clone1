@@ -1,5 +1,4 @@
 class LikesController < ApplicationController
-
   def create
     @post = Post.find(params[:post_id])
     #withメソッドによって、paramsに新しいキーと値を追加している？リファレンスの情報が転がってないのでよくわかっていない
@@ -9,7 +8,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    #likeのidを取得してから、特定のpostを取得する
+    # likeのidを取得してから、特定のpostを取得する
     @post = Like.find(params[:id]).post
     current_user.unlike(@post)
   end

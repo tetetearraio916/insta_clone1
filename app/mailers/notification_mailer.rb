@@ -1,5 +1,4 @@
 class NotificationMailer < ApplicationMailer
-
   def like_post
     @user_from = params[:user_from]
     @user_to = params[:user_to]
@@ -19,6 +18,4 @@ class NotificationMailer < ApplicationMailer
     @user_to = params[:user_to]
     mail(to: @user_to.email, subject: "#{@user_from.name}があなたをフォローしました")
   end
-
-
 end

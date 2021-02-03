@@ -181,6 +181,8 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
+    meta-tags (2.14.0)
+      actionpack (>= 3.2.0, < 6.2)
     method_source (1.0.0)
     mimemagic (0.3.5)
     mini_magick (4.10.1)
@@ -378,6 +380,7 @@ DEPENDENCIES
   kaminari
   letter_opener_web
   listen (>= 3.0.5, < 3.2)
+  meta-tags
   mini_magick
   mysql2 (>= 0.4.4, < 0.6.0)
   pry-byebug

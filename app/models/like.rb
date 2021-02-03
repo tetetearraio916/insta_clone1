@@ -23,20 +23,19 @@ class Like < ApplicationRecord
   belongs_to :user
   belongs_to :post
 
-  #post_idとuser_idの組が１組しかないvalidate
-  validates :user_id, uniqueness: {scope: :post_id}
+  # post_idとuser_idの組が１組しかないvalidate
+  validates :user_id, uniqueness: { scope: :post_id }
 
-  #notificationsのアソシエーション
+  # notificationsのアソシエーション
   has_one :notification, as: :subject, dependent: :destroy
 
-  #relationshipsテーブルのレコードが保存された後、create_notificationsメソッドが発動する
+  # relationshipsテーブルのレコードが保存された後、create_notificationsメソッドが発動する
   after_create_commit :create_notifications
 
   private
 
-  #notificationsテーブルのレコードに保存する
+  # notificationsテーブルのレコードに保存する
   def create_notifications
     Notification.create(subject: self, user: post.user, action_type: :liked_to_own_post)
   end
-
 end

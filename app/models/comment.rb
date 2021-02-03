@@ -22,20 +22,19 @@
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :post
-  #バリデーション
+  # バリデーション
   validates :content, presence: true
 
-  #notificationsのアソシエーション
+  # notificationsのアソシエーション
   has_one :notification, as: :subject, dependent: :destroy
 
-  #relationshipsテーブルのレコードが保存された後、create_notificationsメソッドが発動する
+  # relationshipsテーブルのレコードが保存された後、create_notificationsメソッドが発動する
   after_create_commit :create_notifications
 
   private
 
-  #notificationsテーブルのレコードに保存する
+  # notificationsテーブルのレコードに保存する
   def create_notifications
     Notification.create(subject: self, user: post.user, action_type: :commented_to_own_post)
   end
-
 end

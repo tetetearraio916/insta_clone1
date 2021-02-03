@@ -1,18 +1,9 @@
+- set_meta_tags title: "ユーザー一覧ページ"
 .container
   .row
     .col-md-6.col-12.offset-md-3.mb-3
       .card
         .card-body
-          - @users.each do |user|
-            .user.mb-3.d-flex.justify-content-between
-              = link_to user_path(user) do
-                = image_tag  user.avatar.url, class: "rounded-circle mr-1",  width: "40", height: "40"
-                = user.name
-              - if logged_in? && user != current_user
-                div id = "follow-area-#{user.id}"
-                  - if current_user.follow?(user)
-                    = render "users/unfollow", user: user
-                  - else
-                    = render "users/follow", user: user
-            hr
-          = paginate @users
+          = render @users
+    .col-md-6.col-12.offset-md-3
+      = paginate @users

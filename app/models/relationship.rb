@@ -20,24 +20,23 @@
 #  fk_rails_...  (followed_id => users.id)
 #
 class Relationship < ApplicationRecord
-  belongs_to :follow, class_name: "User"
-  belongs_to :followed, class_name: "User"
+  belongs_to :follow, class_name: 'User'
+  belongs_to :followed, class_name: 'User'
 
   validates :follow_id, presence: true
   validates :followed_id, presence: true
-  validates :follow_id, uniqueness: { scope: :followed_id}
+  validates :follow_id, uniqueness: { scope: :followed_id }
 
-  #notificationへの関連付け
+  # notificationへの関連付け
   has_one :notification, as: :subject, dependent: :destroy
 
-  #relationshipsテーブルのレコードが保存された後、create_notificationsメソッドが発動する
+  # relationshipsテーブルのレコードが保存された後、create_notificationsメソッドが発動する
   after_create_commit :create_notifications
 
   private
 
-  #notificationsテーブルのレコードに保存する
+  # notificationsテーブルのレコードに保存する
   def create_notifications
     Notification.create(subject: self, user: followed, action_type: :followed_me)
   end
-
 end

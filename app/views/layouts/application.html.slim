@@ -1,8 +1,7 @@
 doctype html
 html
   head
-    title
-      | InstaClone1
+    = display_meta_tags(default_meta_tags)
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all'
@@ -12,4 +11,5 @@ html
     = render "shared/flash"
     main
       = yield
-    = javascript_include_tag "application"
+      = render "shared/swiper"
+      = render "shared/modal"
