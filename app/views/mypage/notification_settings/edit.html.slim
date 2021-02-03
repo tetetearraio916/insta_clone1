@@ -1,0 +1,21 @@
+.container
+    .row
+    .col-md-8.offset-md-2
+      .card
+        .card-body
+          .row
+            = render "mypage/shared/sidebar"
+            .col-md-9
+              .mypage_content
+                = form_with model: @user, url: mypage_notification_setting_path, local: true do |f|
+                  = render 'shared/error_messages', object: @user
+                  .form-group
+                    = f.check_box :notification_on_comment
+                    = f.label :notification_on_comment, "コメント時の通知メール"
+                  .form-group
+                    = f.check_box :notification_on_like
+                    = f.label :notification_on_like, "いいね時の通知メール"
+                  .form-group
+                    = f.check_box :notification_on_follow
+                    = f.label :notification_on_follow, "フォロー時の通知メール"
+                  = f.submit '更新する', class: 'btn btn-raised btn-primary'
