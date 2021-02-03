@@ -37,3 +37,5 @@ yarn-debug.log*
 /config/database.yml
 #アップロードした画像を無視する
 /public/uploads
+#commit.templateの設定ファイル
+/.commit_template
