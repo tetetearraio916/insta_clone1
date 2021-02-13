@@ -21,6 +21,12 @@ module InstaClone1
       g.skip_routes true # trueならroutes.rb変更せず、falseなら通常通り変更
       g.test_framework false # testファイル生成せず
       g.helper false
+      g.test_framework :rspec,
+        fixtures: false,
+        controller_specs: false ,
+        view_specs: false,
+        helper_specs: false,
+        routing_specs: false
     end
 
     config.active_job.queue_adapter = :sidekiq
