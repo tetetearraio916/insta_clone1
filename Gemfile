@@ -41,6 +41,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   #Rspec
   gem 'rspec-rails', '~> 4.0.2'
+  # 偽データ作成
+  gem 'faker'
 end
 
 group :development do
@@ -83,8 +85,6 @@ gem 'sorcery'
 gem 'carrierwave'
 # 画像リサイズ
 gem 'mini_magick'
-# 偽データ作成
-gem 'faker'
 # ページネーション機能実装
 gem 'kaminari'
 # 国際化対応
