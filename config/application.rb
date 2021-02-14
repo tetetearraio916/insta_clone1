@@ -22,7 +22,6 @@ module InstaClone1
       g.test_framework false # testファイル生成せず
       g.helper false
       g.test_framework :rspec,
-        fixtures: false,
         controller_specs: false ,
         view_specs: false,
         helper_specs: false,
