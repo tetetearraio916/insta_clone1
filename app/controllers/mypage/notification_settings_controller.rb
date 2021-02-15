@@ -1,5 +1,4 @@
 class Mypage::NotificationSettingsController < ApplicationController
-
   def edit
     @user = User.find(current_user.id)
   end
@@ -7,9 +6,9 @@ class Mypage::NotificationSettingsController < ApplicationController
   def update
     @user = User.find(current_user.id)
     if @user.update(notification_params)
-      redirect_to edit_mypage_notification_setting_path, success: "設定を更新しました"
+      redirect_to edit_mypage_notification_setting_path, success: '設定を更新しました'
     else
-      flash[:danger] ="設定の更新に失敗しました"
+      flash[:danger] = '設定の更新に失敗しました'
       render edit
     end
   end
@@ -19,5 +18,4 @@ class Mypage::NotificationSettingsController < ApplicationController
   def notification_params
     params.require(:user).permit(:notification_on_comment, :notification_on_like, :notification_on_follow)
   end
-
 end
