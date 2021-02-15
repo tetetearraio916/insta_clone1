@@ -51,28 +51,27 @@ RSpec.describe User, type: :model do
     end
 
     it 'ユーザー名が一意であること' do
-      create(:user, name: "taro")
-      user = build(:user, name: "taro")
-      user.valid?
-      expect(user.errors[:name]).to include("はすでに存在します")
+      user = create(:user)
+      other_user = build(:user, name: user.name)
+      other_user.valid?
+      expect(other_user.errors[:name]).to include("はすでに存在します")
     end
 
     it 'メールが一意であること' do
-      create(:user, email: "taro@example.com")
-      user = build(:user, email: "taro@example.com")
-      user.valid?
-      expect(user.errors[:email]).to include("はすでに存在します")
+      user = create(:user, email: "taro@example.com")
+      other_user = build(:user, email: user.email)
+      other_user.valid?
+      expect(other_user.errors[:email]).to include("はすでに存在します")
     end
   end
 
-  describe 'アソシエーション' do
-    let!(:post) { create(:post) }
+  describe 'インスタンスメソッド' do
     let!(:user) { create(:user) }
     let!(:other_user) { create(:user) }
+    let!(:my_post) { create(:post, user: user) }
+    let!(:other_post) { create(:post, user: other_user) }
 
     describe '全ての関連付けに対して' do
-      let!(:my_post) { create(:post, user: user) }
-      let!(:other_post) { create(:post, user: other_user) }
 
       it '関連付けしたリソースがそのユーザーのものであること' do
         expect(user.own?(my_post)).to be_truthy
@@ -104,32 +103,36 @@ RSpec.describe User, type: :model do
       it 'ユーザーが他のユーザーをフォローしていないことがわかること' do
         expect(user.follow?(other_user)).to be_falsey
       end
-
-      it '自分とフォローしたユーザーの投稿が取得できること' do
-        user.follow(other_user)
-        expect(user.feed.count).to eq(user.posts.count + other_user.posts.count)
-      end
     end
 
     describe 'いいね関連' do
 
       it '投稿にいいねをすること' do
-        expect{user.like(post)}.to change{ Like.count }.by(1)
+        expect{user.like(other_post)}.to change{ Like.count }.by(1)
       end
 
       it 'いいねした投稿を解除する' do
-        user.like(post)
-        expect{user.unlike(post)}.to change{ Like.count }.by(-1)
+        user.like(other_post)
+        expect{user.unlike(other_post)}.to change{ Like.count }.by(-1)
       end
 
       it 'ユーザーがその投稿にいいねしていることがわかること' do
-        user.like(post)
-        expect(user.like?(post)).to be_truthy
+        user.like(other_post)
+        expect(user.like?(other_post)).to be_truthy
       end
 
       it 'ユーザーがその投稿にいいねしていないことがわかること' do
-        expect(user.like?(post)).to be_falsey
+        expect(user.like?(other_post)).to be_falsey
       end
+    end
+
+    describe 'feed' do
+      before do
+        user.follow(other_user)
+      end
+      subject { user.feed }
+      it { is_expected.to include my_post  }
+      it { is_expected.to include other_post }
     end
   end
 end
