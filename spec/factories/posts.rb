@@ -20,12 +20,12 @@
 FactoryBot.define do
   factory :post do
     content { Faker::Lorem.word }
-    #複数画像保存の際に、json形式で保存するため対応した
-    images { [ Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/IMG_52CBCD9693AC-1.jpeg'), 'spec/fixtures/IMG_52CBCD9693AC-1.jpeg') ] }
+    #複数画像保存の際に、json形式で保存するため対応した([]に値を入れなければならない)
+    images { [File.open("#{Rails.root}/spec/fixtures/IMG_52CBCD9693AC-1.jpeg")] }
     user
 
     trait :multiple_images do
-      images { [ Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/IMG_52CBCD9693AC-1.jpeg'), 'spec/fixtures/IMG_52CBCD9693AC-1.jpeg'), Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/IMG_52CBCD9693AC-1.jpeg'), 'spec/fixtures/IMG_52CBCD9693AC-1.jpeg') ] }
+      images { [File.open("#{Rails.root}/spec/fixtures/IMG_52CBCD9693AC-1.jpeg"), File.open("#{Rails.root}/spec/fixtures/IMG_52CBCD9693AC-1.jpeg")] }
     end
 
   end
