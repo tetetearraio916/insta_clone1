@@ -53,33 +53,48 @@ RSpec.describe Post, type: :model do
     let(:post) { create(:post, content: 'abcde', user: user) }
     let(:comment) { create(:comment, content: 'hoge', post: post) }
 
-    context '投稿内容から' do
-      it '入力文字と一致する投稿が存在すれば返すこと' do
-        expect(Post.post_like('ab')).to include(post)
+    describe '投稿内容から' do
+
+      context '入力文字と一致する投稿が存在すれば' do
+        it '戻り値として投稿を返すこと' do
+          expect(Post.post_like('ab')).to include(post)
+        end
       end
 
-      it '入力文字と一致する投稿が存在しなければ返さない' do
-        expect(Post.post_like('abd')).to be_empty
-      end
-    end
-
-    context 'ユーザー名から' do
-      it '入力文字と一致するユーザーが存在すれば投稿を返すこと' do
-        expect(Post.user_like('dora')).to eq(user.posts)
-      end
-
-      it '入力文字と一致するユーザーが存在しなければ投稿を返さないこと' do
-        expect(Post.user_like('dore')).to be_empty
+      context '入力文字と一致する投稿が存在しなければ' do
+        it '戻り値として投稿を返さない' do
+          expect(Post.post_like('abd')).to be_empty
+        end
       end
     end
 
-    context 'コメントから' do
-      it '入力文字と一致するコメントが存在すれば投稿を返すこと' do
-        expect(Post.comment_like('ho')).to include(comment.post)
+    describe 'ユーザー名から' do
+
+      context '入力文字と一致する投稿が存在すれば' do
+        it '戻り値として投稿を返すこと' do
+          expect(Post.user_like('dora')).to eq(user.posts)
+        end
       end
 
-      it '入力文字と一致するコメントが存在すれば投稿を返すこと' do
-        expect(Post.comment_like('hob')).to be_empty
+      context '入力文字と一致する投稿が存在しなければ' do
+        it '戻り値として投稿を返さないこと' do
+          expect(Post.user_like('dore')).to be_empty
+        end
+      end
+    end
+
+    describe 'コメントから' do
+
+      context '入力文字と一致する投稿が存在すれば' do
+        it '入力文字と一致するコメントが存在すれば投稿を返すこと' do
+          expect(Post.comment_like('ho')).to include(comment.post)
+        end
+      end
+
+      context '入力文字と一致する投稿が存在しなければ' do
+        it '入力文字と一致するコメントが存在すれば投稿を返すこと' do
+          expect(Post.comment_like('hob')).to be_empty
+        end
       end
     end
   end
