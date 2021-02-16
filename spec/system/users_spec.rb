@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe "Users", type: :system do
   let!(:user) { create(:user) }
   let!(:other_user) { create(:user) }
-  let!(:post) { create(:post, user: user) }
-  let!(:ohter_post) { create(:post, user: other_user) }
+
 
   describe 'ユーザー登録' do
     it 'ユーザー登録が成功すること' do
