@@ -7,9 +7,9 @@
 #  crypted_password        :string(255)
 #  email                   :string(255)      not null
 #  name                    :string(255)      not null
-#  notification_on_comment :boolean          default(NULL)
-#  notification_on_follow  :boolean          default(NULL)
-#  notification_on_like    :boolean          default(NULL)
+#  notification_on_comment :boolean          default(TRUE)
+#  notification_on_follow  :boolean          default(TRUE)
+#  notification_on_like    :boolean          default(TRUE)
 #  salt                    :string(255)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
