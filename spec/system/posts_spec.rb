@@ -2,119 +2,146 @@ require 'rails_helper'
 
 RSpec.describe "Posts", type: :system do
   let!(:user) { create(:user) }
-  let!(:other_user) { create(:user) }
   let!(:my_post) { create(:post, user: user) }
-  let!(:other_post) { create(:post, user: other_user) }
+  let!(:other_post1) { create(:post) }
+  let!(:other_post2) { create(:post) }
 
+  describe 'ポスト一覧' do
 
-  it '投稿一覧が閲覧できる' do
-    login(user)
-    visit '/'
-    expect(current_path).to eq '/'
-  end
-
-  it '新規投稿できる' do
-    login(user)
-    visit '/posts/new'
-    attach_file '画像', "#{Rails.root}/spec/fixtures/dummy.jpeg"
-    fill_in 'post_content', with: "test"
-    click_on '登録する'
-    expect(page).to have_content('投稿しました')
-  end
-
-  context '自分の投稿に' do
-    it '編集ボタンが表示される' do
-      user.follow(other_user)
-      login(user)
-      visit '/'
-      within "#post-#{my_post.id}" do
-        expect(page).to have_css '#edit'
+    context 'ログインしている場合' do
+      before do
+        login(user)
+        user.follow(other_post1.user)
+      end
+      it 'フォロワーと自分の投稿だけが閲覧できること' do
+        visit root_path
+        expect(page).to have_content other_post1.content
+        expect(page).to have_content my_post.content
+        expect(page).not_to have_content other_post2.content
       end
     end
 
-    it '削除ボタンが表示される' do
-      user.follow(other_user)
-      login(user)
-      visit '/'
-      within "#post-#{my_post.id}" do
-        expect(page).to have_css '#delete'
+    context 'ログインしていない場合' do
+      it '全てのポストが表示されること' do
+        visit posts_path
+        expect(page).to have_content other_post1.content
+        expect(page).to have_content my_post.content
+        expect(page).to have_content other_post2.content
       end
     end
   end
 
-  context '他人の投稿に' do
-
-    it '編集ボタンが表示されない' do
-      user.follow(other_user)
+  describe 'ポスト投稿' do
+    it '画像を投稿できること' do
       login(user)
-      visit '/'
-      within "#post-#{other_post.id}" do
+      visit new_post_path
+      within '#posts_form' do
+        attach_file '画像', "#{Rails.root}/spec/fixtures/dummy.jpeg"
+        fill_in '本文', with: "test"
+        click_on '登録する'
+      end
+      expect(page).to have_content '投稿しました'
+      expect(page).to have_content 'test'
+    end
+  end
+
+
+  describe 'ポスト更新' do
+    before do
+      login(user)
+    end
+
+    it '自分の投稿に編集ボタンが表示されること' do
+      visit root_path
+      expect(page).to have_css '#edit'
+    end
+
+
+    it '他人の投稿には編集ボタンが表示されないこと' do
+      user.follow(other_post1.user)
+      visit root_path
+      within "#post-#{other_post1.id}" do
         expect(page).to_not have_css '#edit'
       end
     end
 
-    it '削除ボタンが表示されない' do
-      user.follow(other_user)
+
+    it '投稿を更新できること' do
+      visit edit_post_path(my_post)
+      within '#posts_form' do
+        attach_file '画像', "#{Rails.root}/spec/fixtures/dummy.jpeg"
+        fill_in '本文', with: "update"
+        click_on '登録する'
+      end
+      expect(page).to have_content('投稿を更新しました')
+      expect(page).to have_content("update")
+    end
+  end
+
+  describe '投稿を削除できること' do
+    before do
       login(user)
-      visit '/'
-      within "#post-#{other_post.id}" do
+    end
+
+    it '自分の投稿に削除ボタンが表示されること' do
+      visit root_path
+      expect(page).to have_css '#delete'
+    end
+
+    it '他人の投稿には削除ボタンが表示されないこと' do
+      user.follow(other_post1.user)
+      visit root_path
+      within "#post-#{other_post1.id}" do
         expect(page).to_not have_css '#delete'
       end
     end
-  end
 
-  it '投稿を更新できる' do
-    login(user)
-    visit "/"
-    within "#post-#{my_post.id}" do
-      click_on 'edit'
+    it '投稿を削除できること' do
+      visit root_path
+      within "#post-#{my_post.id}" do
+        page.accept_confirm { find('#delete').click }
+      end
+      expect(page).to have_content("投稿を削除しました")
+      expect(page).not_to have_content(my_post.content)
     end
-    expect(current_path).to eq "/posts/#{my_post.id}/edit"
-    attach_file '画像', "#{Rails.root}/spec/fixtures/dummy.jpeg"
-    fill_in 'post_content', with: "update"
-    click_on '登録する'
-    expect(page).to have_content('更新しました')
   end
 
-  it '投稿を削除できる' do
-    login(user)
-    visit "/"
-    within "#post-#{my_post.id}" do
-      click_on 'delete'
+  describe 'ポスト詳細' do
+    before do
+      login(user)
     end
-    expect{
-      expect(page.accept_confirm).to eq "本当に削除しますか？"
-      expect(page).to have_content "投稿を削除しました"
-    }.to change{ Post.count }.by(-1)
-  end
 
-  it '投稿の詳細画面が閲覧できる' do
-    login(user)
-    visit '/'
-    click_on 'show'
-    expect(current_path).to eq "/posts/#{my_post.id}"
+    it '投稿の詳細画面が閲覧できる' do
+      visit post_path(my_post)
+      expect(current_path).to eq "/posts/#{my_post.id}"
+    end
   end
 
   describe 'いいね関連' do
-    it '投稿に対していいねができる' do
-      user.follow(other_user)
+    before do
       login(user)
-      visit '/'
-      within "#like_area-#{other_post.id}" do
-        click_on 'like-button'
-      end
-      expect(page).to have_css '#unlike-button'
+      user.follow(other_post1.user)
     end
 
-    it '投稿に対していいねを外させる' do
-      user.follow(other_user)
-      user.like(other_post)
-      login(user)
-      visit '/'
-      within "#like_area-#{other_post.id}" do
-        click_on 'unlike-button'
-      end
-      expect(page).to have_css '#like-button'
+    it 'いいねができること' do
+      visit root_path
+      expect{
+        within "#like_area-#{other_post1.id}" do
+          click_on 'like-button'
+        end
+        expect(page).to have_css '#unlike-button'
+      }.to change(user.like_posts, :count).by(1)
+    end
+
+    it 'いいねを外せること' do
+      user.like(other_post1)
+      visit root_path
+      expect{
+        within "#like_area-#{other_post1.id}" do
+          click_on 'unlike-button'
+        end
+        expect(page).to have_css '#like-button'
+      }.to change(user.like_posts, :count).by(-1)
     end
   end
 end

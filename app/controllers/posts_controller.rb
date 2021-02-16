@@ -29,9 +29,9 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to root_path, success: '更新しました'
+      redirect_to root_path, success: '投稿を更新しました'
     else
-      flash[:danger] = '更新に失敗しました'
+      flash[:danger] = '投稿の更新に失敗しました'
       render :edit
     end
   end
