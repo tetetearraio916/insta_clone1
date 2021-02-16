@@ -9,7 +9,7 @@ main
           .form-group
               = f.label :password, 'パスワード　', class: 'bmd-label-floating'
               = f.password_field :password, class: 'form-control'
-          = f.submit 'ログイン', class: 'btn btn-raised btn-primary'
+          = f.submit 'ログイン', class: 'btn btn-raised btn-primary', id: 'login'
       .card
           .card-body
             | アカウントをお持ちでないですか？
