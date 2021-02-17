@@ -1,20 +1,21 @@
 .card.mb-5.post
-  .card-header
-    .d-flex.align-items-center
+  div id = "post-#{post.id}"
+    .card-header
+      .d-flex.align-items-center
         = image_tag  post.user.avatar.url, class: "rounded-circle mr-1", width: "40", height: "40"
         = link_to user_path(post.user) do
           = post.user.name
-        /ぼっち演算子を用いてnilの時にはnilを返すようにする/
+          /ぼっち演算子を用いてnilを返すようにする/
         - if current_user&.own?(post)
-          .ml-auto
-              = link_to post_path(post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3" do
+            .ml-auto
+              = link_to post_path(post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3 delete-button" do
                 i class = "far fa-trash-alt fa-lg"
-              = link_to edit_post_path(post) do
+              = link_to edit_post_path(post), class: 'edit-button' do
                 i class = "far fa-edit fa-lg"
         - if current_user && !current_user&.own?(post)
-          .ml-auto
-            div id = "like_area-#{post.id}"
-              = render "like", post: post
+            .ml-auto
+              div id = "like_area-#{post.id}"
+                = render "like", post: post
   = link_to post_path(post) do
     .swiper-container.top-carousel
       .swiper-wrapper

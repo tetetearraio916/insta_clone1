@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :require_login
   before_action :set_search_posts_form
+  add_flash_types :success, :info, :warning, :danger
 
   protected
 

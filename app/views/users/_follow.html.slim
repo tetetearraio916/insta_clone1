@@ -1,4 +1,4 @@
 //modelオプションを調べる！挙動がよくわかっていないので
 = form_with(model: current_user.follow_relationships.build) do |f|
   = f.hidden_field :followed_id, value: user.id
-  = f.submit "フォロー", class: "btn btn-raised btn-outline-warning"
+  = f.submit "フォロー", class: "btn btn-raised btn-outline-warning", id: "follow"

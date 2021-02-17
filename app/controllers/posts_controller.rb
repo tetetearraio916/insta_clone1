@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   skip_before_action :require_login, only: [:index, :show]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:edit, :update, :destroy]
 
   def index
     @posts = if current_user
@@ -29,19 +29,20 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to root_path, success: '更新しました'
+      redirect_to root_path, success: '投稿を更新しました'
     else
-      flash[:danger] = '更新に失敗しました'
+      flash[:danger] = '投稿の更新に失敗しました'
       render :edit
     end
   end
 
   def destroy
     @post.destroy
-    redirect_to root_path
+    redirect_to root_path, success: '投稿を削除しました'
   end
 
   def show
+    @post = Post.find(params[:id])
     @comment = Comment.new
     # 新着順で表示、N+1問題に対応するためincludesを用いている
     @comments = @post.comments.includes(:user).order(created_at: :desc)
@@ -58,6 +59,6 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = current_user.posts.find(params[:id])
   end
 end
