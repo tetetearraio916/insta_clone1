@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  skip_before_action :require_login, only: [:index, :show]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  skip_before_action :require_login, only: %i[:index, :show]
+  before_action :set_post, only: %i[:edit, :update, :destroy]
 
   def index
     @posts = if current_user
@@ -42,6 +42,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
     @comment = Comment.new
     # 新着順で表示、N+1問題に対応するためincludesを用いている
     @comments = @post.comments.includes(:user).order(created_at: :desc)
