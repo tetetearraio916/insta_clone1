@@ -8,15 +8,15 @@
           /ぼっち演算子を用いてnilを返すようにする/
         - if current_user&.own?(post)
             .ml-auto
-              = link_to post_path(post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3", id: 'delete' do
+              = link_to post_path(post), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "mr-3 delete-button" do
                 i class = "far fa-trash-alt fa-lg"
-              = link_to edit_post_path(post), id: 'edit' do
+              = link_to edit_post_path(post), class: 'edit-button' do
                 i class = "far fa-edit fa-lg"
         - if current_user && !current_user&.own?(post)
             .ml-auto
               div id = "like_area-#{post.id}"
                 = render "like", post: post
-  = link_to post_path(post), id: 'show' do
+  = link_to post_path(post) do
     .swiper-container.top-carousel
       .swiper-wrapper
         - post.images.each do |img|
