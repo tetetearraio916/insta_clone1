@@ -53,7 +53,9 @@ RSpec.describe "Posts", type: :system do
 
     it '自分の投稿に編集ボタンが表示されること' do
       visit root_path
-      expect(page).to have_css '#edit'
+      within "#post-#{my_post.id}" do
+        expect(page).to have_css '.edit-button'
+      end
     end
 
 
@@ -85,21 +87,21 @@ RSpec.describe "Posts", type: :system do
 
     it '自分の投稿に削除ボタンが表示されること' do
       visit root_path
-      expect(page).to have_css '#delete'
+      expect(page).to have_css '.delete-button'
     end
 
     it '他人の投稿には削除ボタンが表示されないこと' do
       user.follow(other_post1.user)
       visit root_path
       within "#post-#{other_post1.id}" do
-        expect(page).to_not have_css '#delete'
+        expect(page).to_not have_css 'delete-button'
       end
     end
 
     it '投稿を削除できること' do
       visit root_path
       within "#post-#{my_post.id}" do
-        page.accept_confirm { find('#delete').click }
+        page.accept_confirm { find('.delete-button').click }
       end
       expect(page).to have_content("投稿を削除しました")
       expect(page).not_to have_content(my_post.content)
@@ -127,9 +129,9 @@ RSpec.describe "Posts", type: :system do
       visit root_path
       expect{
         within "#like_area-#{other_post1.id}" do
-          click_on 'like-button'
+          find('.like-button').click
         end
-        expect(page).to have_css '#unlike-button'
+        expect(page).to have_css '.unlike-button'
       }.to change(user.like_posts, :count).by(1)
     end
 
@@ -138,9 +140,9 @@ RSpec.describe "Posts", type: :system do
       visit root_path
       expect{
         within "#like_area-#{other_post1.id}" do
-          click_on 'unlike-button'
+          find('.unlike-button').click
         end
-        expect(page).to have_css '#like-button'
+        expect(page).to have_css '.like-button'
       }.to change(user.like_posts, :count).by(-1)
     end
   end
