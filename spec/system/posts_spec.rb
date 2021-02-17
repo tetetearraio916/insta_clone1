@@ -63,7 +63,7 @@ RSpec.describe "Posts", type: :system do
       user.follow(other_post1.user)
       visit root_path
       within "#post-#{other_post1.id}" do
-        expect(page).to_not have_css '#edit'
+        expect(page).to_not have_css '.edit-button'
       end
     end
 
@@ -94,7 +94,7 @@ RSpec.describe "Posts", type: :system do
       user.follow(other_post1.user)
       visit root_path
       within "#post-#{other_post1.id}" do
-        expect(page).to_not have_css 'delete-button'
+        expect(page).to_not have_css '.delete-button'
       end
     end
 
